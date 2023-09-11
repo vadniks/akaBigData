@@ -115,11 +115,32 @@ class P1T5:
         return nums
 
 
+class P1T6:
+
+    @staticmethod
+    def run():
+        a = [1,    2,   3,   4,   2,   1,   3,   4,   5,   6,   5,   4,   3,   2]
+        b = ['a', 'b', 'c', 'c', 'c', 'b', 'a', 'c', 'a', 'a', 'b', 'c', 'b', 'a']
+        assert len(a) == len(b)
+
+        result: Dict[str, int] = {}
+        for i in range(0, len(b)):  # type: int
+            letter = b[i]
+
+            count = result[letter] if letter in result else 0
+            count += a[i]
+
+            result.update({letter: count})
+
+        return result
+
+
 def main():
     # print('t2', P1T2.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
     # print('t3', P1T3.run('+', 1.0, 2.0), P1T3.run('/', 4.0, 2.0), P1T3.run('abs', -1.0, 0.0))
     # P1T4.run()
-    print('t5', P1T5.run(7))
+    # print('t5', P1T5.run(7))
+    print('t6', P1T6.run())
 
 
 if __name__ == '__main__':
