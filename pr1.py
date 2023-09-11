@@ -1,6 +1,8 @@
 import fileinput
 import math
 from typing import Dict, List
+import pandas as pd
+from sklearn.datasets import fetch_california_housing
 
 
 # class P1T1: # <done>
@@ -135,12 +137,36 @@ class P1T6:
         return result
 
 
+class P1T7_12:
+
+    @staticmethod
+    def run():
+        data = fetch_california_housing(as_frame=True)
+        x_data = data.data
+
+        print('t8')
+        x_data.info()
+
+        print('t9')
+        print(x_data.isna().sum())
+
+        print('t10')
+        print(x_data.loc[(x_data.HouseAge > 50) & (x_data.Population > 2500)])
+
+        print('t11')
+        x_data = x_data["MedInc"]
+        print(x_data.max(), x_data.min())
+
+        # print('t12', x_data.apply(pd.DataFrame.mean)) # TODO: not working
+
+
 def main():
     # print('t2', P1T2.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
     # print('t3', P1T3.run('+', 1.0, 2.0), P1T3.run('/', 4.0, 2.0), P1T3.run('abs', -1.0, 0.0))
     # P1T4.run()
     # print('t5', P1T5.run(7))
-    print('t6', P1T6.run())
+    # print('t6', P1T6.run())
+    P1T7_12.run()
 
 
 if __name__ == '__main__':
