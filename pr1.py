@@ -187,7 +187,7 @@ class P1T1O:
 
                 count += 1
 
-            print('\n')
+            print()
 
 
 def main():
