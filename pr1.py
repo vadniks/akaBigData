@@ -157,7 +157,37 @@ class P1T7_12:
         med_inc = x_data["MedInc"]
         print(med_inc.max(), med_inc.min())
 
-        # print('t12', x_data.apply(pd.DataFrame.mean)) # TODO: not working
+        # print('t12', x_data.apply(pd.DataFrame.mean))  # TODO: not working - f*** it then
+
+
+class P1T1O:
+
+    @staticmethod
+    def run(x_input: str):
+        morze = {
+            'a': '.-', 'b': '-...', 'c': '-.-.', 'd': '-..',
+            'e': '.', 'f': '..-.', 'g': '--.', 'h': '....',
+            'i': '..', 'j': '.---', 'k': '-.-', 'l': '.-..',
+            'm': '--', 'n': '-.', 'o': '---', 'p': '.--.',
+            'q': '--.-', 'r': '.-.', 's': '…', 't': '-',
+            'u': '..-', 'v': '…-', 'w': '.--', 'x': '-..-',
+            'y': '-.--', 'z': '--..'
+        }
+
+        for word in x_input.split(' '):
+            count = 0
+            last = len(word) - 1
+
+            for char in word:
+                if char != ' ':
+                    print(morze[char.lower()], end='')
+
+                if count < last:
+                    print(' ', end='')
+
+                count += 1
+
+            print('\n')
 
 
 def main():
@@ -166,7 +196,8 @@ def main():
     # P1T4.run()
     # print('t5', P1T5.run(7))
     # print('t6', P1T6.run())
-    P1T7_12.run()
+    # P1T7_12.run()
+    P1T1O.run('Ignition sequence start')
 
 
 if __name__ == '__main__':
