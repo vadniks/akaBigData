@@ -1,6 +1,6 @@
 import fileinput
 import math
-from typing import Dict
+from typing import Dict, List
 
 
 # class P1T1: # <done>
@@ -99,26 +99,27 @@ class P1T4:
 class P1T5:
 
     @staticmethod
-    def run(n: int):
-        print('t5')
-
+    def run(n: int) -> List[int]:
         num = 1
         count = 0
 
+        nums: List[int] = []
         for i in range(1, n + 1):
-            print(num)
+            nums.append(num)
             count += 1
 
             if count == num:
                 num += 1
                 count = 0
 
+        return nums
+
 
 def main():
     # print('t2', P1T2.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
     # print('t3', P1T3.run('+', 1.0, 2.0), P1T3.run('/', 4.0, 2.0), P1T3.run('abs', -1.0, 0.0))
     # P1T4.run()
-    P1T5.run(7)
+    print('t5', P1T5.run(7))
 
 
 if __name__ == '__main__':
