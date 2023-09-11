@@ -106,7 +106,7 @@ class P1T5:
         count = 0
 
         nums: List[int] = []
-        for i in range(1, n + 1):
+        for _ in range(1, n + 1):
             nums.append(num)
             count += 1
 
@@ -144,16 +144,16 @@ class P1T7_12:
         data = fetch_california_housing(as_frame=True)
         x_data = data.data
 
-        print('t8')
+        print('t8:')
         x_data.info()
 
-        print('t9')
+        print('t9:')
         print(x_data.isna().sum())
 
-        print('t10')
+        print('t10:')
         print(x_data.loc[(x_data.HouseAge > 50) & (x_data.Population > 2500)])
 
-        print('t11')
+        print('t11:')
         med_inc = x_data["MedInc"]
         print(med_inc.max(), med_inc.min())
 
@@ -174,11 +174,11 @@ class P1T1O:
             'y': '-.--', 'z': '--..'
         }
 
-        for word in x_input.split(' '):
+        for word in x_input.split(' '):  # type: str
             count = 0
             last = len(word) - 1
 
-            for char in word:
+            for char in word:  # type: str
                 if char != ' ':
                     print(morze[char.lower()], end='')
 
