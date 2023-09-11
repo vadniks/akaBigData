@@ -154,8 +154,8 @@ class P1T7_12:
         print(x_data.loc[(x_data.HouseAge > 50) & (x_data.Population > 2500)])
 
         print('t11')
-        x_data = x_data["MedInc"]
-        print(x_data.max(), x_data.min())
+        med_inc = x_data["MedInc"]
+        print(med_inc.max(), med_inc.min())
 
         # print('t12', x_data.apply(pd.DataFrame.mean)) # TODO: not working
 
