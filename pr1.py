@@ -1,3 +1,4 @@
+
 import math
 from typing import Dict
 
@@ -36,8 +37,35 @@ class P1T1:
                 raise Exception
 
 
+class P1T2:
+
+    @staticmethod
+    def run(operation: str, num_a: float, num_b: float) -> float:
+        match operation:
+            case '+':
+                return num_a + num_b
+            case '-':
+                return num_a - num_b
+            case '*':
+                return num_a * num_b
+            case '/':
+                assert num_b != 0
+                return num_a / num_b
+            case '//':
+                assert num_b != 0
+                return num_a // num_b
+            case 'abs':
+                assert num_b == 0
+                return abs(num_a)
+            case 'pow':
+                return num_a ** num_b
+            case _:
+                raise Exception
+
+
 def main():
-    print(P1T1.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
+    print('t1', P1T1.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
+    print('t2', P1T2.run('+', 1.0, 2.0), P1T2.run('/', 4.0, 2.0), P1T2.run('abs', -1.0, 0.0))
 
 
 if __name__ == '__main__':
