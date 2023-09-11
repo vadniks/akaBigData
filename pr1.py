@@ -1,15 +1,14 @@
 import math
-import sys
 from typing import Dict
 
 
 class P1T1:
 
     @staticmethod
-    def run() -> Dict[str, float]:
-        """reads the program arguments, expects the following pattern: 0=1.0,2.0 1=3.0,4.0 2=5.0"""
+    def run(words: str) -> Dict[str, float]:
         result: Dict[str, float] = {}
-        for word in sys.argv[1:]:  # 0=1.0,2.0
+
+        for word in words.split(' '):
             shape = int(word[0])
             params = word[2:].split(',')
 
@@ -38,8 +37,9 @@ class P1T1:
 
 
 def main():
-    print(P1T1.run())
+    print(P1T1.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
 
 
 if __name__ == '__main__':
     main()
+
