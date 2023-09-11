@@ -3,7 +3,10 @@ import math
 from typing import Dict
 
 
-class P1T1:
+# class P1T1: # <done>
+
+
+class P1T2:
 
     @staticmethod
     def run(words: str) -> Dict[str, float]:
@@ -14,9 +17,9 @@ class P1T1:
             params = word[2:].split(',')
 
             if len(params) == 1:
-                area = P1T1.area(shape, float(params[0]))
+                area = P1T2.area(shape, float(params[0]))
             else:
-                area = P1T1.area(shape, float(params[0]), float(params[1]))
+                area = P1T2.area(shape, float(params[0]), float(params[1]))
 
             result.update(area)
         return result
@@ -37,7 +40,7 @@ class P1T1:
                 raise Exception
 
 
-class P1T2:
+class P1T3:
 
     @staticmethod
     def run(operation: str, num_a: float, num_b: float) -> float:
@@ -63,7 +66,7 @@ class P1T2:
                 raise Exception
 
 
-class P1T3:
+class P1T4:
 
     @staticmethod
     def run():
@@ -94,9 +97,9 @@ class P1T3:
 
 
 def main():
-    print('t1', P1T1.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
-    print('t2', P1T2.run('+', 1.0, 2.0), P1T2.run('/', 4.0, 2.0), P1T2.run('abs', -1.0, 0.0))
-    P1T3.run()
+    print('t1', P1T2.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
+    print('t2', P1T3.run('+', 1.0, 2.0), P1T3.run('/', 4.0, 2.0), P1T3.run('abs', -1.0, 0.0))
+    P1T4.run()
 
 
 if __name__ == '__main__':
