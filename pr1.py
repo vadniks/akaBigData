@@ -73,7 +73,7 @@ class P1T4:
         plain_sum = 0
         squares_sum = 0
 
-        print('t3:')
+        print('t4:')
 
         for x_line in fileinput.input():  # type: str
             line = x_line[:len(x_line) - 1]
@@ -88,18 +88,37 @@ class P1T4:
             if negative:
                 num = -num
 
-            plain_sum = plain_sum + num
-            squares_sum = squares_sum + num ** 2
+            plain_sum += num
+            squares_sum += num ** 2
 
             if plain_sum == 0:
-                print('t3', squares_sum)
+                print('t4', squares_sum)
                 break
 
 
+class P1T5:
+
+    @staticmethod
+    def run(n: int):
+        print('t5')
+
+        num = 1
+        count = 0
+
+        for i in range(1, n + 1):
+            print(num)
+            count += 1
+
+            if count == num:
+                num += 1
+                count = 0
+
+
 def main():
-    print('t1', P1T2.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
-    print('t2', P1T3.run('+', 1.0, 2.0), P1T3.run('/', 4.0, 2.0), P1T3.run('abs', -1.0, 0.0))
-    P1T4.run()
+    # print('t2', P1T2.run('0=1.0,2.0 1=3.0,4.0 2=5.0'))
+    # print('t3', P1T3.run('+', 1.0, 2.0), P1T3.run('/', 4.0, 2.0), P1T3.run('abs', -1.0, 0.0))
+    # P1T4.run()
+    P1T5.run(7)
 
 
 if __name__ == '__main__':
