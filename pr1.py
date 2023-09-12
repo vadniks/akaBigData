@@ -143,7 +143,7 @@ class P1T7_12:
     def run():
         data = fetch_california_housing(as_frame=True)
         x_data = data.data
-        print('t9:\n', x_data)
+        print('t7:\n', x_data)
 
         print('t8:')
         x_data.info()
