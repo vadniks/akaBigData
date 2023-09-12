@@ -143,6 +143,7 @@ class P1T7_12:
     def run():
         data = fetch_california_housing(as_frame=True)
         x_data = data.data
+        print('t9:\n', x_data)
 
         print('t8:')
         x_data.info()
@@ -154,10 +155,11 @@ class P1T7_12:
         print(x_data.loc[(x_data.HouseAge > 50) & (x_data.Population > 2500)])
 
         print('t11:')
-        med_inc = x_data["MedInc"]
+        med_inc = x_data.MedInc
         print(med_inc.max(), med_inc.min())
 
-        # print('t12', x_data.apply(pd.DataFrame.mean))  # TODO: not working - f*** it then
+        print('t12:')
+        print(x_data.apply(pd.DataFrame.mean))
 
 
 class P1T1O:
@@ -174,6 +176,7 @@ class P1T1O:
             'y': '-.--', 'z': '--..'
         }
 
+        print('t1*:')
         for word in x_input.split(' '):  # type: str
             count = 0
             last = len(word) - 1
@@ -196,8 +199,8 @@ def main():
     # P1T4.run()
     # print('t5', P1T5.run(7))
     # print('t6', P1T6.run())
-    # P1T7_12.run()
-    P1T1O.run('Ignition sequence start')
+    P1T7_12.run()
+    # P1T1O.run('Ignition sequence start')
 
 
 if __name__ == '__main__':
