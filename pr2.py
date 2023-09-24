@@ -19,8 +19,9 @@ class P2:
 
     @staticmethod
     def t2():
-        print('t2:', P2.data.info())
-        print('\nt2:\n', P2.data.head())
+        print('t2:')
+        P2.data.info()
+        print('t2:\n', P2.data.head())
         print('\n')
 
         if P2.data.isnull().values.any():
@@ -42,20 +43,22 @@ class P2:
         ))
 
         fig.update_layout(
-            title='Population and Countries',
+            title='Population in the Six Regions',
             title_x=0.5,
             title_font_size=20,
-            xaxis_title='Country',
+            xaxis_title='Six Regions',
             xaxis_title_font_size=16,
-            xaxis_tickfont_size=16,
+            xaxis_tickfont_size=14,
             yaxis_title='Population',
             yaxis_title_font_size=16,
-            yaxis_tickfont_size=16,
+            yaxis_tickfont_size=14,
+            width=1400,
+            height=700,
             margin=dict(l=0, r=0, t=30, b=0)
         )
 
-        fig.update_xaxes(showline=True, linewidth=2, linecolor='black', gridcolor='ivory')
-        fig.update_yaxes(showline=True, linewidth=2, linecolor='black', gridcolor='ivory')
+        fig.update_xaxes(showline=True, tickangle=-45, linewidth=2, linecolor='black', gridcolor='ivory')
+        fig.update_yaxes(showline=True, tickangle=-45, linewidth=2, linecolor='black', gridcolor='ivory')
         fig.show()
 
     @staticmethod
@@ -77,62 +80,22 @@ class P2:
 
     @staticmethod
     def t5():
-        from plotly.subplots import make_subplots
-        import plotly.graph_objects as go
+        def plot(x, y, title, x_label, y_label):
+            plt.rc('axes', axisbelow=True)
+            px = 1 / plt.rcParams['figure.dpi']  # pixel in inches
+            plt.subplots(figsize=(1920*px, 700*px))
 
-        fig = make_subplots(rows=1, cols=2)
+            plt.title(title)
+            plt.xlabel(x_label)
+            plt.ylabel(y_label)
+            plt.scatter(x, y, color='white', edgecolor='black', linewidth=2, zorder=2)
 
-        fig.update_xaxes(title_text='Income vs Life Expectancy', title_font_size=14, tickfont_size=14, row=1, col=1)
-        fig.update_xaxes(title_text='Income vs Population', title_font_size=14, tickfont_size=14, row=1, col=2)
+            plt.plot(x, y, color='red', zorder=1)
+            plt.grid(linewidth=2, color='mistyrose')
+            plt.show()
 
-        fig.add_trace(
-            go.Scatter(
-                x=P2.data.income,
-                y=P2.data.life_exp,
-                mode='lines+markers',
-                line=dict(
-                    color='crimson',
-                    width=2
-                ),
-                marker=dict(
-                   color='white',
-                   size=12,
-                   line=dict(
-                       color='black',
-                       width=2
-                   )
-                )
-            ),
-            row=1,
-            col=1
-        )
-
-        fig.add_trace(
-            go.Scatter(
-                x=P2.data.income,
-                y=P2.data.population,
-                mode='lines+markers',
-                line=dict(
-                    color='crimson',
-                    width=2
-                ),
-                marker=dict(
-                   color='white',
-                   size=12,
-                   line=dict(
-                       color='black',
-                       width=2
-                   )
-                )
-            ),
-            row=1,
-            col=2
-        )
-
-        fig.update_layout(title='Line Plots', title_x=0.5, showlegend=False)
-        fig.update_xaxes(showline=True, linewidth=2, gridcolor='mistyrose')
-        fig.update_yaxes(showline=True, linewidth=2, gridcolor='mistyrose')
-        fig.show()
+        plot(P2.data.income, P2.data.life_exp, 'Income vs Life Expectancy', 'Income', 'Life Expectancy')
+        plot(P2.data.income, P2.data.population, 'Income vs Population', 'Income', 'Population')
 
     @staticmethod
     def t6():
@@ -140,33 +103,36 @@ class P2:
         from sklearn.manifold import TSNE
 
         P2.data2 = pd.read_csv('mnist_train.csv')
-        P2.data2.head()
+        print('t6:', P2.data2.head())
 
         labels = P2.data2['label']
         labels_dropped = P2.data2.drop('label', axis=1)
 
         standard = StandardScaler().fit_transform(labels_dropped)
-        print('t6:', standard.shape)
-
-        #
-
         start_time = time.time()
 
         P2.first_1000 = standard[0:1000, :]
         P2.first_labels_1000 = labels[0:1000]
 
-        model_1 = TSNE(n_components=2, perplexity=5, random_state=123)
-        tsne_features = model_1.fit_transform(P2.first_1000)
+        def plot(perplexity):
+            model = TSNE(n_components=2, perplexity=perplexity, random_state=123)
+            tsne_features = model.fit_transform(P2.first_1000)
 
-        tsne_data = np.vstack((tsne_features.T, P2.first_labels_1000)).T
-        tsne_df = pd.DataFrame(data=tsne_data, columns=['X', 'Y', 'class_type'])
+            tsne_data = np.vstack((tsne_features.T, P2.first_labels_1000)).T
+            tsne_df = pd.DataFrame(data=tsne_data, columns=['X', 'Y', 'class_type'])
 
-        sns.scatterplot(data=tsne_df, x='X', y='Y', hue='class_type', palette='bright')
-        plt.show()
+            sns.scatterplot(data=tsne_df, x='X', y='Y', hue='class_type', palette='bright')
+            plt.title(f'Perplexity {perplexity}')
+            plt.show()
+
+        plot(5)
+        plot(25)
+        plot(50)
+
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print(f"t6: Elapsed time: {elapsed_time} seconds")
+        print(f't6: Elapsed time: {elapsed_time} seconds')
 
     @staticmethod
     def t7():
@@ -174,21 +140,30 @@ class P2:
 
         start_time = time.time()
 
-        embedding = umap.UMAP(
-            n_neighbors=5,
-            min_dist=0.3,
-            metric='correlation'
-        ).fit_transform(P2.first_1000)
+        def plot(n_neighbors, min_dist):
+            embedding = umap.UMAP(
+                n_neighbors=n_neighbors,
+                min_dist=min_dist,
+                metric='correlation'
+            ).fit_transform(P2.first_1000)
 
-        umap_data = np.vstack((embedding.T, P2.first_labels_1000)).T
-        umap_df = pd.DataFrame(data=umap_data, columns=['X', 'Y', 'class_type'])
+            umap_data = np.vstack((embedding.T, P2.first_labels_1000)).T
+            umap_df = pd.DataFrame(data=umap_data, columns=['X', 'Y', 'class_type'])
 
-        sns.scatterplot(data=umap_df, x='X', y='Y', hue='class_type', palette='bright')
-        plt.show()
+            plt.title(f'n_neighbors={n_neighbors}, min_dist={min_dist}')
+            sns.scatterplot(data=umap_df, x='X', y='Y', hue='class_type', palette='bright')
+            plt.show()
+
+        plot(5, 0.1)
+        plot(5, 0.6)
+        plot(25, 0.1)
+        plot(25, 0.6)
+        plot(50, 0.1)
+        plot(50, 0.6)
 
         end_time = time.time()
         elapsed_time = end_time - start_time
-        print(f"t7: Elapsed time: {elapsed_time} seconds")
+        print(f't7: Elapsed time: {elapsed_time} seconds')
 
 
 if __name__ == '__main__':
