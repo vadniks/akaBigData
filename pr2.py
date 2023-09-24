@@ -156,11 +156,8 @@ class P2:
             plt.show()
 
         plot(5, 0.1)
-        plot(5, 0.6)
-        plot(25, 0.1)
-        plot(25, 0.6)
-        plot(50, 0.1)
-        plot(50, 0.6)
+        plot(25, 0.5)
+        plot(50, 1.0)
 
         end_time = time.time()
         elapsed_time = end_time - start_time
@@ -168,6 +165,9 @@ class P2:
 
 
 if __name__ == '__main__':
+    import warnings
+    warnings.filterwarnings('ignore')
+
     P2.t1()
     P2.t2()
     P2.t3()
