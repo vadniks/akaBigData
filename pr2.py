@@ -66,7 +66,7 @@ class P2:
         import plotly.express as px
 
         colors = ['gold', 'mediumturquoise', 'darkorange', 'lightgreen']
-        fig = px.pie(P2.data, values='population', names='six_regions', title='Population of European continent')
+        fig = px.pie(P2.data, values='population', names='six_regions')
 
         fig.update_traces(
             hoverinfo='label+percent',
@@ -156,12 +156,16 @@ class P2:
             plt.show()
 
         plot(5, 0.1)
-        plot(25, 0.5)
-        plot(50, 1.0)
+        plot(5, 0.5)
+        plot(25, 0.1)
 
         end_time = time.time()
         elapsed_time = end_time - start_time
         print(f't7: Elapsed time: {elapsed_time} seconds')
+
+        plot(25, 0.5)
+        plot(50, 0.5)
+        plot(50, 1.0)
 
 
 if __name__ == '__main__':
