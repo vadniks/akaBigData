@@ -144,6 +144,7 @@ class P2:
             embedding = umap.UMAP(
                 n_neighbors=n_neighbors,
                 min_dist=min_dist,
+                random_state=123,
                 metric='correlation'
             ).fit_transform(P2.first_1000)
 
