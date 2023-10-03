@@ -16,8 +16,10 @@ class P3:
 
     @staticmethod
     def t2():
+        print('t2:')
         print(P3.data.head())
         print(P3.data.describe())
+        print('--------------------------------------------------')
 
     @staticmethod
     def t3():
@@ -45,6 +47,7 @@ class P3:
         median_charges = P3.data['charges'].median()
         mode_charges = P3.data['charges'].mode().values[0]
 
+        print('t4:')
         print('Mean BMI = %f' % mean_bmi)
         print('Mode BMI: ', mode_bmi)
         print('Median BMI = %f' % median_bmi)
@@ -52,6 +55,7 @@ class P3:
         print('Mean Charges = %f' % mean_charges)
         print('Mode Charges: ', mode_charges)
         print('Median Charges = %f' % median_charges)
+        print('--------------------------------------------------')
 
         #
 
@@ -95,7 +99,7 @@ class P3:
         samples = [50, 100, 150, 200, 250, 300]
         set_of_means = []
         for i in samples:
-            x = [np.mean(P3.data['charges'].sample(i)) for j in range(300)]
+            x = [np.mean(P3.data['charges'].sample(i)) for _ in range(300)]
             set_of_means.append(x)
 
         sns.distplot(set_of_means)
@@ -118,13 +122,17 @@ class P3:
         iqr1 = q3 - q1
         iqr2 = sts.iqr(P3.data['charges'], interpolation='midpoint')
 
+        print('t6:')
         print('Standard Deviation: ', std)
         print('Range: ', rang)
         print('Quarter range using numpy: ', iqr1)
         print('Quarter range with scipy: ', iqr2)
+        print('--------------------------------------------------')
 
     @staticmethod
     def t7():
+        print('t7:')
+
         print('90% confidence interval for Charges: ', sts.norm.interval(
             confidence=0.90,
             loc=np.mean(P3.data['charges']),
@@ -149,6 +157,8 @@ class P3:
             scale=sts.sem(P3.data['bmi'])
         ))
 
+        print('--------------------------------------------------')
+
     @staticmethod
     def t8():
         import pylab
@@ -158,17 +168,23 @@ class P3:
         sts.probplot(P3.data['bmi'], dist="norm", plot=pylab)
         pylab.show()
 
+        print('t8')
         print(sts.kstest(P3.data['bmi'], 'norm', sts.norm.fit(P3.data['bmi'])))
         print(sts.kstest(P3.data['charges'], 'norm', sts.norm.fit(P3.data['charges'])))
+        print('--------------------------------------------------')
 
     @staticmethod
     def t9():
         P3.data2 = pd.read_csv('ECDCCases.csv')
+        print('t9:')
         print(P3.data2)
         P3.data2.info()
+        print('--------------------------------------------------')
 
     @staticmethod
     def t10():
+        print('t10:')
+
         def check_na():
             for column in P3.data2.columns:
                 na = np.mean(P3.data2[column].isna() * 100)
@@ -181,9 +197,11 @@ class P3:
         print(P3.data2)
 
         check_na()
+        print('--------------------------------------------------')
 
     @staticmethod
     def t11():
+        print('t11:')
         print(P3.data2.describe())
 
         deaths_above_3000 = P3.data2['deaths'] >= 3000
@@ -191,20 +209,24 @@ class P3:
 
         print(sum(deaths_above_3000 == True))
         print(P3.data2[deaths_above_3000])
+        print('--------------------------------------------------')
 
     @staticmethod
     def t12():
+        print('t12:')
         print(P3.data2[P3.data2.duplicated()])
 
         P3.data3 = P3.data2.drop_duplicates()
         print(P3.data3)
         print(P3.data3[P3.data3.duplicated()])
+        print('--------------------------------------------------')
 
     @staticmethod
     def t13():
         from statsmodels.stats.weightstats import ttest_ind
 
         P3.data3 = pd.read_csv('bmi.csv')
+        print('t13:')
         print(P3.data3.head())
 
         data3_northwest = P3.data3.loc[P3.data3['region'] == 'northwest']
@@ -220,6 +242,7 @@ class P3:
         print(sts.shapiro(data3_northwest['bmi']), '\n', sts.shapiro(data3_southwest['bmi']))
 
         print(sts.bartlett(data3_northwest['bmi'], data3_southwest['bmi']))
+        print('--------------------------------------------------')
 
     @staticmethod
     def t14():
@@ -227,9 +250,11 @@ class P3:
 
         data4 = pd.DataFrame(data, columns=["N", "Observed"])
         data4['Expected'] = 100
-        print(data4)
 
+        print('t14:')
+        print(data4)
         print(sts.chisquare(data4['Observed'], data4['Expected']))
+        print('--------------------------------------------------')
 
     @staticmethod
     def t15():
@@ -248,9 +273,11 @@ class P3:
             'Studying'
         ]
 
+        print('t15:')
         print(data.head())
         _, p_value, _, _ = sts.chi2_contingency(data)
         print(p_value)
+        print('--------------------------------------------------')
 
 
 if __name__ == '__main__':
