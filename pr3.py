@@ -152,7 +152,7 @@ class P3:
     @staticmethod
     def t8():
         import pylab
-        
+
         sts.probplot(P3.data['charges'], dist="norm", plot=pylab)
         pylab.show()
         sts.probplot(P3.data['bmi'], dist="norm", plot=pylab)
@@ -189,7 +189,7 @@ class P3:
         deaths_above_3000 = P3.data2['deaths'] >= 3000
         print(deaths_above_3000)
 
-        print(sum(deaths_above_3000 is True))
+        print(sum(deaths_above_3000 == True))
         print(P3.data2[deaths_above_3000])
 
     @staticmethod
@@ -254,6 +254,9 @@ class P3:
 
 
 if __name__ == '__main__':
+    import warnings
+    warnings.filterwarnings('ignore')
+
     P3.t1()
     P3.t2()
     P3.t3()
