@@ -18,6 +18,7 @@ class P3:
     def t2():
         print('t2:')
         print(P3.data.head())
+        print()
         print(P3.data.describe())
         print('--------------------------------------------------')
 
@@ -39,13 +40,16 @@ class P3:
 
     @staticmethod
     def t4():
-        mean_bmi = P3.data['bmi'].mean()
-        median_bmi = P3.data['bmi'].median()
-        mode_bmi = P3.data['bmi'].mode().values[0]
+        bmi = P3.data['bmi']
+        charges = P3.data['charges']
 
-        mean_charges = P3.data['charges'].mean()
-        median_charges = P3.data['charges'].median()
-        mode_charges = P3.data['charges'].mode().values[0]
+        mean_bmi = bmi.mean()
+        median_bmi = bmi.median()
+        mode_bmi = bmi.mode().values[0]
+
+        mean_charges = charges.mean()
+        median_charges = charges.median()
+        mode_charges = charges.mode().values[0]
 
         print('t4:')
         print('Mean BMI = %f' % mean_bmi)
@@ -97,11 +101,11 @@ class P3:
         import seaborn as sns
 
         samples = [50, 100, 150, 200, 250, 300]
+        np.random.seed(123)
         set_of_means = []
         for i in samples:
             x = [np.mean(P3.data['charges'].sample(i)) for _ in range(300)]
             set_of_means.append(x)
-
         sns.distplot(set_of_means)
 
         k = 0
@@ -109,7 +113,7 @@ class P3:
         for i in range(0, 3):
             for j in range(0, 2):
                 ax[i, j].hist(set_of_means[k], 10, density=True, edgecolor='black', color='green')
-                ax[i, j].set_title(label=("n = ", samples[k]))
+                ax[i, j].set_title(label=('n = ', samples[k]))
                 k += 1
         plt.show()
 
@@ -178,6 +182,7 @@ class P3:
         P3.data2 = pd.read_csv('ECDCCases.csv')
         print('t9:')
         print(P3.data2)
+        print()
         P3.data2.info()
         print('--------------------------------------------------')
 
@@ -190,11 +195,13 @@ class P3:
                 na = np.mean(P3.data2[column].isna() * 100)
                 print(f" {column} : {round(na, 1)}%")
         check_na()
+        print()
 
         P3.data2 = P3.data2.drop(['Cumulative_number_for_14_days_of_COVID-19_cases_per_100000', 'geoId'], axis=1)
         P3.data2["countryterritoryCode"].fillna("Other", inplace=True)
         P3.data2["popData2019"].fillna(P3.data2['popData2019'].median(), inplace=True)
         print(P3.data2)
+        print()
 
         check_na()
         print('--------------------------------------------------')
@@ -203,11 +210,13 @@ class P3:
     def t11():
         print('t11:')
         print(P3.data2.describe())
+        print()
 
         deaths_above_3000 = P3.data2['deaths'] >= 3000
         print(deaths_above_3000)
 
         print(sum(deaths_above_3000 == True))
+        print()
         print(P3.data2[deaths_above_3000])
         print('--------------------------------------------------')
 
