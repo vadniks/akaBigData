@@ -82,6 +82,16 @@ class P3:
 
     @staticmethod
     def t5():
+        plt.figure(figsize=(8, 8))
+        plt.boxplot(
+            [P3.data['bmi'], P3.data['charges'], P3.data['age'], P3.data['children']],
+            labels=['bmi', 'charges', 'age', 'children'],
+            vert=False
+        )
+        plt.xticks(np.arange(0, 105, 5))
+        plt.grid()
+        plt.show()
+
         fig, ax = plt.subplots(1, 4, figsize=(15, 4))
         ax[0].boxplot(P3.data.age, vert=False)
         ax[0].set_title('Age')
