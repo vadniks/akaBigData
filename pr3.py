@@ -12,7 +12,7 @@ class P3:
 
     @staticmethod
     def t1():
-        P3.data = pd.read_csv("insurance.csv")
+        P3.data = pd.read_csv('insurance.csv')
 
     @staticmethod
     def t2():
@@ -59,24 +59,40 @@ class P3:
         print('Mean Charges = %f' % mean_charges)
         print('Mode Charges: ', mode_charges)
         print('Median Charges = %f' % median_charges)
-        print('--------------------------------------------------')
+        print()
 
-        #
+        # noinspection PyArgumentList
+        def measure_of_dispersion(which):
+            std = P3.data[which].std()
+            rang = P3.data[which].max() - P3.data[which].min()
+            q1 = np.percentile(P3.data[which], 25, interpolation='midpoint')
+            q3 = np.percentile(P3.data[which], 75, interpolation='midpoint')
+            iqr1 = q3 - q1
+            iqr2 = sts.iqr(P3.data[which], interpolation='midpoint')
+
+            print(f'Standard Deviation of {which}: ', std)
+            print(f'Range of {which}: ', rang)
+            print(f'Quarter range of {which} using numpy: ', iqr1)
+            print(f'Quarter range of {which} with scipy: ', iqr2)
+
+        measure_of_dispersion('charges')
+        print()
+        measure_of_dispersion('bmi')
+        print('--------------------------------------------------')
 
         fig, ax = plt.subplots(1, 2, figsize=(15, 4))
         ax[0].hist(P3.data.bmi, edgecolor='black', color='green', bins=15, label='bins=15')
-
         ax[1].hist(P3.data.charges, edgecolor='black', color='green', bins=15, label='bins=15')
 
-        ax[0].axvline(mean_bmi, color='r', linestyle='--', label="Mean")
-        ax[0].axvline(median_bmi, color='g', linestyle='-', label="Median")
-        ax[0].axvline(mode_bmi, color='b', linestyle='-', label="Mode")
+        ax[0].axvline(mean_bmi, color='r', linestyle='--', label='Mean')
+        ax[0].axvline(median_bmi, color='g', linestyle='-', label='Median')
+        ax[0].axvline(mode_bmi, color='b', linestyle='-', label='Mode')
         ax[0].set_title('BMI')
         ax[0].legend()
 
-        ax[1].axvline(mean_charges, color='r', linestyle='--', label="Mean")
-        ax[1].axvline(median_charges, color='g', linestyle='-', label="Median")
-        ax[1].axvline(mode_charges, color='b', linestyle='-', label="Mode")
+        ax[1].axvline(mean_charges, color='r', linestyle='--', label='Mean')
+        ax[1].axvline(median_charges, color='g', linestyle='-', label='Median')
+        ax[1].axvline(mode_charges, color='b', linestyle='-', label='Mode')
         ax[1].set_title('Charges')
         ax[1].legend()
 
@@ -110,7 +126,7 @@ class P3:
     def t6():
         import seaborn as sns
 
-        samples = [50, 100, 150, 200, 250, 300]
+        samples = [1, 10, 50, 100, 150, 200]
         np.random.seed(123)
         set_of_means = []
         for i in samples:
@@ -127,6 +143,18 @@ class P3:
                 k += 1
         plt.show()
 
+        def mean_std(ii, n):
+            df = pd.DataFrame(set_of_means[ii], columns=[f'n={n}'])
+            print('Mean of ', df.mean().to_string(), ' ', 'Std of ', df.std().to_string())
+
+        print('t6:')
+        mean_std(0, 1)
+        mean_std(1, 10)
+        mean_std(2, 50)
+        mean_std(3, 100)
+        mean_std(4, 150)
+        mean_std(5, 200)
+
         std = P3.data['charges'].std()
         rang = P3.data['charges'].max() - P3.data['charges'].min()
         # noinspection PyArgumentList
@@ -136,7 +164,7 @@ class P3:
         iqr1 = q3 - q1
         iqr2 = sts.iqr(P3.data['charges'], interpolation='midpoint')
 
-        print('t6:')
+        print()
         print('Standard Deviation: ', std)
         print('Range: ', rang)
         print('Quarter range using numpy: ', iqr1)
@@ -177,12 +205,19 @@ class P3:
     def t8():
         import pylab
 
-        sts.probplot(P3.data['charges'], dist="norm", plot=pylab)
-        pylab.show()
-        sts.probplot(P3.data['bmi'], dist="norm", plot=pylab)
+        sts.probplot(P3.data['charges'], dist='norm', plot=pylab)
+        pylab.ylabel('charges')
+        pylab.xlabel('normals')
+        pylab.title('QQ for Charges')
         pylab.show()
 
-        print('t8')
+        sts.probplot(P3.data['bmi'], dist='norm', plot=pylab)
+        pylab.ylabel('bmi')
+        pylab.xlabel('normals')
+        pylab.title('QQ for BMI')
+        pylab.show()
+
+        print('t8:')
         print(sts.kstest(P3.data['bmi'], 'norm', sts.norm.fit(P3.data['bmi'])))
         print(sts.kstest(P3.data['charges'], 'norm', sts.norm.fit(P3.data['charges'])))
         print('--------------------------------------------------')
@@ -203,13 +238,13 @@ class P3:
         def check_na():
             for column in P3.data2.columns:
                 na = np.mean(P3.data2[column].isna() * 100)
-                print(f" {column} : {round(na, 1)}%")
+                print(f' {column} : {round(na, 1)}%')
         check_na()
         print()
 
         P3.data2 = P3.data2.drop(['Cumulative_number_for_14_days_of_COVID-19_cases_per_100000', 'geoId'], axis=1)
-        P3.data2["countryterritoryCode"].fillna("Other", inplace=True)
-        P3.data2["popData2019"].fillna(P3.data2['popData2019'].median(), inplace=True)
+        P3.data2['countryterritoryCode'].fillna('Other', inplace=True)
+        P3.data2['popData2019'].fillna(P3.data2['popData2019'].median(), inplace=True)
         print(P3.data2)
         print()
 
@@ -222,9 +257,25 @@ class P3:
         print(P3.data2.describe())
         print()
 
+        plt.figure(figsize=(5, 4))
+        plt.boxplot(
+            [
+                P3.data2['day'], P3.data2['month'], P3.data2['year'],
+                P3.data2['cases'], P3.data2['deaths'], P3.data2['popData2019']
+            ],
+            labels=['day', 'month', 'year', 'cases', 'deaths', 'popData2019'],
+            vert=False
+        )
+        plt.grid()
+        plt.show()
+
+        data2_outliers = P3.data2.select_dtypes(exclude=['object'])
+        for column in data2_outliers:
+            plt.figure(figsize=(5, 4))
+            data2_outliers.boxplot([column])
+
         deaths_above_3000 = P3.data2['deaths'] >= 3000
         print(deaths_above_3000)
-
         print(sum(deaths_above_3000 == True))
         print()
         print(P3.data2[deaths_above_3000])
@@ -247,31 +298,32 @@ class P3:
         P3.data3 = pd.read_csv('bmi.csv')
         print('t13:')
         print(P3.data3.head())
+        print()
 
         data3_northwest = P3.data3.loc[P3.data3['region'] == 'northwest']
         print(data3_northwest)
+        print()
 
         data3_southwest = P3.data3.loc[P3.data3['region'] == 'southwest']
         print(data3_southwest)
+        print()
 
-        print(np.var(data3_northwest['bmi']), np.var(data3_southwest['bmi']))
-        print(sts.ttest_ind(a=data3_northwest['bmi'], b=data3_southwest['bmi'], equal_var=True))
-        print(ttest_ind(data3_northwest['bmi'], data3_southwest['bmi']))
+        print(np.var(data3_northwest['bmi']), np.var(data3_southwest['bmi']), '\n')
+        print(sts.ttest_ind(a=data3_northwest['bmi'], b=data3_southwest['bmi'], equal_var=True), '\n')
+        print(ttest_ind(data3_northwest['bmi'], data3_southwest['bmi']), '\n')
 
-        print(sts.shapiro(data3_northwest['bmi']), '\n', sts.shapiro(data3_southwest['bmi']))
+        print(sts.shapiro(data3_northwest['bmi']), '\n', sts.shapiro(data3_southwest['bmi']), '\n')
 
         print(sts.bartlett(data3_northwest['bmi'], data3_southwest['bmi']))
         print('--------------------------------------------------')
 
     @staticmethod
     def t14():
-        data = [[1, 97], [2, 98], [3, 109], [4, 95], [5, 97], [6, 104]]
-
-        data4 = pd.DataFrame(data, columns=["N", "Observed"])
+        data4 = pd.DataFrame([[1, 97], [2, 98], [3, 109], [4, 95], [5, 97], [6, 104]], columns=['N', 'Observed'])
         data4['Expected'] = 100
 
         print('t14:')
-        print(data4)
+        print(data4, '\n')
         print(sts.chisquare(data4['Observed'], data4['Expected']))
         print('--------------------------------------------------')
 
@@ -280,7 +332,7 @@ class P3:
         data = pd.DataFrame({
             'Married': [89, 17, 11, 43, 22, 1],
             'Civil marriage': [80, 22, 20, 35, 6, 4],
-            'Doesn\'t stay in relationships': [35, 44, 35, 6, 8, 22]
+            'Isn\'t in relationships': [35, 44, 35, 6, 8, 22]
         })
 
         data.index = [
