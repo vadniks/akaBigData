@@ -276,7 +276,8 @@ class P3:
 
         deaths_above_3000 = P3.data2['deaths'] >= 3000
         print(deaths_above_3000)
-        print(sum(deaths_above_3000 == True))
+        print()
+        print(f'There are {sum(deaths_above_3000 == True)} days where deaths >= 3000')
         print()
         print(P3.data2[deaths_above_3000])
         print('--------------------------------------------------')
@@ -285,9 +286,11 @@ class P3:
     def t12():
         print('t12:')
         print(P3.data2[P3.data2.duplicated()])
+        print()
 
         P3.data3 = P3.data2.drop_duplicates()
         print(P3.data3)
+        print()
         print(P3.data3[P3.data3.duplicated()])
         print('--------------------------------------------------')
 
@@ -308,7 +311,7 @@ class P3:
         print(data3_southwest)
         print()
 
-        print(np.var(data3_northwest['bmi']), np.var(data3_southwest['bmi']), '\n')
+        print('The variance of both data groups:', np.var(data3_northwest['bmi']), np.var(data3_southwest['bmi']), '\n')
         print(sts.ttest_ind(a=data3_northwest['bmi'], b=data3_southwest['bmi'], equal_var=True), '\n')
         print(ttest_ind(data3_northwest['bmi'], data3_southwest['bmi']), '\n')
 
@@ -346,6 +349,7 @@ class P3:
 
         print('t15:')
         print(data.head())
+        print()
         _, p_value, _, _ = sts.chi2_contingency(data)
         print(p_value)
         print('--------------------------------------------------')
