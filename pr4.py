@@ -47,22 +47,23 @@ class P4:
         data = data.dropna()
 
         x = data.values
-        min_max_scaler = preprocessing.MinMaxScaler()
-        scaled_data = pd.DataFrame(min_max_scaler.fit_transform(x), columns=data.columns)
+        scaled_data = pd.DataFrame(preprocessing.MinMaxScaler().fit_transform(x), columns=data.columns)
         scaled_x = data.drop(['species'], axis=1)
         scaled_y = data['species']
         scaled_x.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
         scaled_y.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
         print(scaled_data, '\n')
 
+        scaled_data.dropna()
+        print(scaled_data, '\n')
+
         # 2.1
-        np.corrcoef(scaled_data['species'], scaled_data['body_mass_g'])
+        print(np.corrcoef(scaled_data['species'], scaled_data['body_mass_g']), '\n')
         cr = scaled_data['species'].corr(scaled_data['body_mass_g'])
         print(cr, '\n')
 
         df = pd.DataFrame(scaled_data, columns=[
-            'species',
-            'island',
+            'species island',
             'culmen_length_mm',
             'culmen_depth_mm',
             'flipper_length_mm',
@@ -73,18 +74,15 @@ class P4:
         print(df.corr().round(3), '\n')
 
         corr = df.corr()
-        corr.style.background_gradient(cmap='coolwarm')
+        corr.style.background_gradient(cmap='coolwarm') # display in colab.research.google.com
 
         # 2.2
-        model1 = LinearRegression()
-        print(model1, '\n')
-
         x = scaled_data[['body_mass_g']]
         y = scaled_data['flipper_length_mm']
         x = np.array(x, type(float))
         y = np.array(y, type(float))
-        print(model1.fit(x, y), '\n')
-
+        model1 = LinearRegression()
+        model1.fit(x, y)
         print(model1.coef_, model1.intercept_, '\n')
 
         model_a = model1.coef_[0]
