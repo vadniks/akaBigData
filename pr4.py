@@ -42,8 +42,8 @@ class P4:
 
         x = data.drop(['species'], axis=1)
         y = data['species']
-        x = x.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
-        y = y.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
+        x.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
+        y.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
         data = data.dropna()
 
         x = data.values
@@ -51,8 +51,8 @@ class P4:
         scaled_data = pd.DataFrame(min_max_scaler.fit_transform(x), columns=data.columns)
         scaled_x = data.drop(['species'], axis=1)
         scaled_y = data['species']
-        scaled_x = scaled_x.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
-        scaled_y = scaled_y.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
+        scaled_x.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
+        scaled_y.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
         print(scaled_data, '\n')
 
         # 2.1
@@ -108,6 +108,7 @@ class P4:
         import scipy.stats as stats
         import statsmodels.api as sm
         from statsmodels.formula.api import ols
+        # noinspection PyProtectedMember
         from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
         print('t3:')
@@ -124,7 +125,7 @@ class P4:
 
         region_bmi = pd.DataFrame({'region': data['region'], 'bmi': data['bmi']})
         groups = region_bmi.groupby('region').groups
-        
+
         northeast = data['bmi'][groups['northeast']]
         northwest = data['bmi'][groups['northwest']]
         southeast = data['bmi'][groups['southeast']]
