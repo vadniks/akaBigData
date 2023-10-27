@@ -94,7 +94,7 @@ class P4:
         print('--------------------------------------------------')
 
         # 2.3
-        fig = plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(10, 6))
         plt.plot(x, model_line, linewidth=2, color='r', label=f'linear_model = {model_a:.2f}x + {model_b:.2f}')
         plt.scatter(x, y, alpha=0.7)
         plt.grid()
