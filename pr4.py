@@ -170,6 +170,7 @@ class P4:
         model = ols('bmi ~ C(region) + C(sex) + C(region) : C(sex)', data=data).fit()
         print(sm.stats.anova_lm(model, type=2), '\n\n')
 
+        # 3.6
         data['combination'] = data['region'] + data['sex']
         # noinspection SpellCheckingInspection
         tukey = pairwise_tukeyhsd(endog=data['bmi'], groups=data['combination'], alpha=0.05)
