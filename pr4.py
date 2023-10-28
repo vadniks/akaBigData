@@ -144,7 +144,6 @@ class P4:
         for i in range(4):
             for j in range(i + 1, 4):
                 region_pairs.append((regions[i], regions[j]))
-        print('\n')
 
         for i, j, in region_pairs:
             print(i, j)
@@ -154,27 +153,29 @@ class P4:
         # 3.4
         print(data['bmi'].mean())
         print(data['bmi'].median())
+        print('\n')
 
         # noinspection SpellCheckingInspection
         tukey = pairwise_tukeyhsd(endog=data['bmi'], groups=data['region'], alpha=0.05)
         tukey.plot_simultaneous()
         plt.vlines(x=30.66, ymin=-0.5, ymax=4.5, color="red")
-        tukey.summary()
+        print(tukey.summary(), '\n')
 
+        # optional
         cat_columns = data.select_dtypes(['object']).columns
         data[cat_columns] = data[cat_columns].apply(lambda x: pd.factorize(x)[0])
         print(data, '\n')
 
         # 3.5
         model = ols('bmi ~ C(region) + C(sex) + C(region) : C(sex)', data=data).fit()
-        print(sm.stats.anova_lm(model, type=2))
+        print(sm.stats.anova_lm(model, type=2), '\n\n')
 
         data['combination'] = data['region'] + data['sex']
         # noinspection SpellCheckingInspection
         tukey = pairwise_tukeyhsd(endog=data['bmi'], groups=data['combination'], alpha=0.05)
         tukey.plot_simultaneous()
         plt.vlines(x=30.66, ymin=-1, ymax=8, color='red')
-        tukey.summary()
+        print(tukey.summary(), '\n')
 
 
 if __name__ == '__main__':
