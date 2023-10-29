@@ -40,18 +40,10 @@ class P4:
         data[cat_columns] = data[cat_columns].apply(lambda x: pd.factorize(x)[0])
         print(data, '\n')
 
-        x = data.drop(['species'], axis=1)
-        y = data['species']
-        x.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
-        y.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
         data = data.dropna()
 
         x = data.values
         scaled_data = pd.DataFrame(preprocessing.MinMaxScaler().fit_transform(x), columns=data.columns)
-        scaled_x = data.drop(['species'], axis=1)
-        scaled_y = data['species']
-        scaled_x.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
-        scaled_y.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
         print(scaled_data, '\n')
 
         scaled_data.dropna()
@@ -63,7 +55,8 @@ class P4:
         print(cr, '\n')
 
         df = pd.DataFrame(scaled_data, columns=[
-            'species island',
+            'species',
+            'island',
             'culmen_length_mm',
             'culmen_depth_mm',
             'flipper_length_mm',
@@ -74,7 +67,7 @@ class P4:
         print(df.corr().round(3), '\n')
 
         corr = df.corr()
-        corr.style.background_gradient(cmap='coolwarm') # display in colab.research.google.com
+        corr.style.background_gradient(cmap='coolwarm')  # display in colab.research.google.com
 
         # 2.2
         x = scaled_data[['body_mass_g']]
@@ -121,6 +114,8 @@ class P4:
             print(f' {column} : {round(na, 1)}%')
         print('\n')
 
+        print(data.region.unique(), '\n')
+
         region_bmi = pd.DataFrame({'region': data['region'], 'bmi': data['bmi']})
         groups = region_bmi.groupby('region').groups
 
@@ -147,27 +142,25 @@ class P4:
 
         for i, j, in region_pairs:
             print(i, j)
-            print(stats.ttest_ind(data['bmi'][groups[i]], data['bmi'][groups[j]]))
+            ttest_result = stats.ttest_ind(data['bmi'][groups[i]], data['bmi'][groups[j]])
+            print(ttest_result)
+            print(ttest_result.pvalue * len(region_pairs))
         print('\n')
 
         # 3.4
-        print(data['bmi'].mean())
+        mean = data['bmi'].mean()
+        print(mean)
         print(data['bmi'].median())
         print('\n')
 
         # noinspection SpellCheckingInspection
         tukey = pairwise_tukeyhsd(endog=data['bmi'], groups=data['region'], alpha=0.05)
         tukey.plot_simultaneous()
-        plt.vlines(x=30.66, ymin=-0.5, ymax=4.5, color="red")
+        plt.vlines(x=mean, ymin=-0.5, ymax=4.5, color="red")
         print(tukey.summary(), '\n')
 
-        # optional
-        cat_columns = data.select_dtypes(['object']).columns
-        data[cat_columns] = data[cat_columns].apply(lambda x: pd.factorize(x)[0])
-        print(data, '\n')
-
         # 3.5
-        model = ols('bmi ~ C(region) + C(sex) + C(region) : C(sex)', data=data).fit()
+        model = ols('bmi ~ region+sex+region:sex', data=data).fit()
         print(sm.stats.anova_lm(model, type=2), '\n\n')
 
         # 3.6
