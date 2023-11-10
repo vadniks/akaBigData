@@ -23,6 +23,8 @@ fastjsonschema==2.18.0
 fonttools==4.42.1
 fqdn==1.5.1
 idna==3.4
+imbalanced-learn==0.11.0
+imblearn==0.0
 ipykernel==6.25.2
 ipython==8.15.0
 ipython-genutils==0.2.0
