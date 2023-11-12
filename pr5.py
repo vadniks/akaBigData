@@ -52,7 +52,7 @@ class P5:
         plt.tight_layout()
         plt.show()
 
-        #
+        # fixing class imbalance using oversampling
 
         x = P5.data.drop(['species'], axis=1)
         y = P5.data.species
@@ -67,15 +67,7 @@ class P5:
 
     @staticmethod
     def t3():
-        from sklearn import preprocessing
         from sklearn.model_selection import train_test_split
-
-        print('t3:')
-
-        x = P5.data.values
-        min_max_scaler = preprocessing.MinMaxScaler()
-        scaled_data = pd.DataFrame(min_max_scaler.fit_transform(x), columns=P5.data.columns)
-        print(scaled_data, '\n')
 
         P5.x_train, P5.x_test, P5.y_train, P5.y_test = train_test_split(
             P5.x_over,
@@ -84,6 +76,8 @@ class P5:
             shuffle=True,
             random_state=59
         )
+
+        print('t3:')
 
         print(
             'Size of Predictor Train set', P5.x_train.shape, '\n',
@@ -120,8 +114,8 @@ class P5:
 
         # print(classification_report(P5.y_test, y_predict), '\n') #
 
-        print((1.00 * 30 + 0.92 * 13 + 1.00 * 24) / (30 + 13 + 24))
-        print((1.00 + 0.92 + 1.00) / 3, '\n')
+        print((0.96 * 28 + 1.00 * 35 + 1.00 * 25) / (28 + 35 + 25))
+        print((1 + 1 + 0.96) / 3, '\n')
 
         # svm
 
