@@ -4,6 +4,10 @@ from sklearn.metrics import f1_score
 import time
 
 
+def display(_):
+    pass
+
+
 class P7:
     data: pd.DataFrame
     x_train = None
@@ -32,6 +36,7 @@ class P7:
             = train_test_split(x, y, test_size=.2, shuffle=True, random_state=59)
 
         print(
+            '\n',
             'Size of Predictor Train set', P7.x_train.shape, '\n',
             'Size of Predictor Test set', P7.x_test.shape, '\n',
             'Size of Target Train set', P7.y_train.shape, '\n',
@@ -77,9 +82,9 @@ class P7:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print(f'Elapsed time: {elapsed_time} seconds')
+        print(f'\nElapsed time: {elapsed_time} seconds')
 
-        grid_search_random_forest.fit(P7.x_train, P7.y_train)
+        display(grid_search_random_forest.fit(P7.x_train, P7.y_train))
 
         best_model = grid_search_random_forest.best_estimator_
         train_predictions = best_model.predict(P7.x_train)
@@ -100,7 +105,7 @@ class P7:
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print(f'Elapsed time: {elapsed_time} seconds')
+        print(f'\nElapsed time: {elapsed_time} seconds')
 
         train_predictions_boosted = model_boost.predict(P7.x_train, task_type='CPU')
         print('Boosted F1 metric for train set', f1_score(train_predictions_boosted, P7.y_train, average='macro'))
