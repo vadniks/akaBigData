@@ -67,7 +67,6 @@ class P7:
 
         # bagging (aka tuning for tries)
 
-        start_time = time.time()
         random_forest = RandomForestClassifier()
 
         params_grid = {
@@ -76,15 +75,16 @@ class P7:
             'min_samples_split': [6, 12],
         }
 
+        start_time = time.time()
+
         grid_search_random_forest = GridSearchCV(
             estimator=random_forest, param_grid=params_grid, scoring='f1_macro', cv=5
         )
+        grid_search_random_forest.fit(P7.x_train, P7.y_train)
+
         end_time = time.time()
         elapsed_time = end_time - start_time
-
         print(f'\nElapsed time: {elapsed_time} seconds')
-
-        display(grid_search_random_forest.fit(P7.x_train, P7.y_train))
 
         best_model = grid_search_random_forest.best_estimator_
         train_predictions = best_model.predict(P7.x_train)
