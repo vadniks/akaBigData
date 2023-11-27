@@ -65,7 +65,7 @@ class P7:
         test_predictions = random_forest.predict(P7.x_test)
         print('F1 metric for test set', f1_score(test_predictions, P7.y_test, average='macro'))
 
-        # bagging (aka tuning for tries)
+        # bagging (aka tuning for trees)
 
         random_forest = RandomForestClassifier()
 
