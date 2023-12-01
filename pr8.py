@@ -23,7 +23,7 @@ class P8:
     @staticmethod
     def visualize_frequencies(data):
         top_20 = data.stack().value_counts()[:20]
-        print(top_20)
+        print(top_20, '\n')
 
         top_20_normalized = data.stack().value_counts(normalize=True)[:20]
         print(top_20_normalized, '\n')
@@ -60,11 +60,11 @@ class P8:
             from apriori_python import apriori
 
             start = time.perf_counter()
-            _, rules = apriori(P8.basket, minSup=first_min_sup, minConf=first_min_conf)
+            _, rules = apriori(basket, minSup=first_min_sup, minConf=first_min_conf)
             time2 = time.perf_counter() - start
             times.append(time2)
 
-            print(rules, '\n')
+            print('first:\n', rules, '\nend\n')
         first()
 
         def second():
@@ -82,17 +82,18 @@ class P8:
             time2 = time.perf_counter() - start
             times.append(time2)
 
-            print(results, '\n')
+            print('second:\n', results, '\nend\n')
 
             # results beautifying
 
+            print('second beautified:')
             y = list(results)
             for result in y:
                 for subset in result[2]:
                     print(subset[0], subset[1])
                     print(f'Support: {result[1]}; Confidence: {subset[2]}; Lift: {subset[3]};')
                     print()
-            print()
+            print('end')
         second()
 
         def third():
@@ -103,10 +104,11 @@ class P8:
             time2 = time.perf_counter() - start
             times.append(time2)
 
+            print('third:')
             # noinspection PyShadowingNames
             for i in range(len(rules)):
                 print(rules[i])
-            print()
+            print('end')
         third()
 
     @staticmethod
@@ -163,7 +165,7 @@ class P8:
     @staticmethod
     def t6():
         P8.data2 = pd.read_csv("data.csv")
-        print(P8.data2)
+        print(P8.data2, '\n')
         P8.data2.info()
         print()
 
