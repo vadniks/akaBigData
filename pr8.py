@@ -25,11 +25,11 @@ class P8:
         top_20 = data.stack().value_counts()[:20]
         print(top_20, '\n')
 
-        top_20_normalized = data.stack().value_counts(normalize=True)[:20]
-        print(top_20_normalized, '\n')
-        top_20_normalized.plot(kind='bar')  # relative frequency
+        top_20_relative = top_20.apply(lambda item: item / data.shape[0])
+        print(top_20_relative, '\n')
+        top_20_relative.plot(kind='bar')  # relative frequency
 
-        top_20.apply(lambda item: item / data.shape[0]).plot(kind='bar')  # actual frequency
+        top_20.plot(kind='bar')  # actual frequency
 
     @staticmethod
     def t2():
