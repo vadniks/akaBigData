@@ -1775,23 +1775,174 @@ is no need to use t-SNE or UMAP to visualize the data, since the visualization h
 This method works better than all the previous ones. They are essentially the same thing - they depend on the distance 
 between the points.
 
-
-
-
-
-
-
-
-
-
-
-
-
 ---
 
 ## Practice 7 - Gain skills in working with ensemble learning methods.
 
-# TODO
+### Task *
+
+Find data for a classification task or for a regression task.
+
+t1
+
+__Output__
+```
+    species     island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0    Adelie  Torgersen              39.1             18.7              181.0
+1    Adelie  Torgersen              39.5             17.4              186.0
+2    Adelie  Torgersen              40.3             18.0              195.0
+3    Adelie  Torgersen               NaN              NaN                NaN
+4    Adelie  Torgersen              36.7             19.3              193.0
+..      ...        ...               ...              ...                ...
+339  Gentoo     Biscoe               NaN              NaN                NaN
+340  Gentoo     Biscoe              46.8             14.3              215.0
+341  Gentoo     Biscoe              50.4             15.7              222.0
+342  Gentoo     Biscoe              45.2             14.8              212.0
+343  Gentoo     Biscoe              49.9             16.1              213.0
+
+     body_mass_g     sex
+0         3750.0    MALE
+1         3800.0  FEMALE
+2         3250.0  FEMALE
+3            NaN     NaN
+4         3450.0  FEMALE
+..           ...     ...
+339          NaN     NaN
+340       4850.0  FEMALE
+341       5750.0    MALE
+342       5200.0  FEMALE
+343       5400.0    MALE
+
+[344 rows x 7 columns]
+     species  island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0          0       0              39.1             18.7              181.0
+1          0       0              39.5             17.4              186.0
+2          0       0              40.3             18.0              195.0
+4          0       0              36.7             19.3              193.0
+5          0       0              39.3             20.6              190.0
+..       ...     ...               ...              ...                ...
+338        2       1              47.2             13.7              214.0
+340        2       1              46.8             14.3              215.0
+341        2       1              50.4             15.7              222.0
+342        2       1              45.2             14.8              212.0
+343        2       1              49.9             16.1              213.0
+
+     body_mass_g  sex
+0         3750.0    0
+1         3800.0    1
+2         3250.0    1
+4         3450.0    1
+5         3650.0    0
+..           ...  ...
+338       4925.0    1
+340       4850.0    1
+341       5750.0    0
+342       5200.0    1
+343       5400.0    0
+
+[334 rows x 7 columns]
+
+ Size of Predictor Train set (267, 6)
+ Size of Predictor Test set (67, 6)
+ Size of Target Train set (267,)
+ Size of Target Test set (67,)
+```
+
+### Task 2
+
+Implement bugging.
+
+t2
+
+__Output__
+```
+Elapsed time: 0.13482189178466797 seconds
+F1 metric for training set 0.9955112808599441
+F1 metric for test set 0.98200460347353
+
+Elapsed time: 5.649371862411499 seconds
+F1 metric for training set 0.9910658307210031
+F1 metric for test set 0.98200460347353
+```
+
+__Conclusion__\
+First, we create a regular tree (RandomForest is the most frequently used) and do not set parameters for what ratio 
+to look for - we try everything. With this we check whether the tree works on our data in principle - if the tree 
+shows an accuracy of less than 60%, then we need to use a neural network. We get 2 results: f1 for training - how well 
+the tree has trained (not the most important result); f1 for test - how well the tree works on new data (the result 
+may be worse, but in this case the same - ~0.98). Tree parameters: max_depth - maximum depth of the tree, 
+min_samples_split - minimum number of examples to split an internal node. Regression tries to find a linear 
+relationship (x increases, which means y also increases), the tree checks all possible relationships, each leaf is a 
+test of the relationships between points, so trees are better than regression.
+We set intervals in params_grid, make grid_search_cv, it lays out all the options, runs them all and gives the most 
+accurate answer. Estimator - the model to be used; scoring - the metric we want to get (f1_macro - accuracy in % in 
+prediction), cv - the number of runs of each parameter. Best_model - best_estimator_ - the best parameters with which 
+the answers are predicted. Average=macro in f1_score - take the largest (best) average value.
+Bagging - tuning for trees (tuning is included in bagging). In this case, bagging for trees is done using grid_search 
+(all options are laid out and selected). We set the intervals (we choose not by eye, but according to the standard - 
+indicated in the documentation and in the manual). Next, the best parameters are selected after running all possible 
+combinations. The prediction result in the test set may deteriorate after tuning due to the randomness factor of the 
+tree. Tuning should be used when the prediction result is 60% or less. The train set contains the answers, but the 
+test set (more importantly) does not contain the answers. If after applying tuning the result has not changed, then 
+this is the best result.
+
+### Task 3
+
+Implement boosting on the same data that was used for bugging.
+
+t3
+
+__Output__
+```
+Learning rate set to 0.019854
+0:	learn: 1.0712628	total: 64.1ms remaining: 3m 12s
+1:	learn: 1.0446230	total: 100ms remaining: 2m 30s
+2:	learn: 1.0206709	total: 152ms remaining: 2m 32s
+3:	learn: 0.9960718	total: 202ms remaining: 2m 31s
+...
+2997:	learn: 0.0028512	total: 44s	remaining: 29.4ms
+2998:	learn: 0.0028501	total: 44s	remaining: 14.7ms
+2999:	learn: 0.0028491	total: 44s	remaining: 0us
+
+Elapsed time: 46.70735192298889 seconds
+Boosted F1 metric for train set 1.0
+Boosted F1 metric for test set 0.98200460347353
+```
+
+__Conclusion__\
+Boosting makes several trees at once. Boosting uses trees as its base algorithms and most often works on samples with 
+heterogeneous data. Boosting helps to find connections where there are none (helps trees), ordinary trees 
+(RandomForest) should find connections, but cannot always find them, regression will not be able to find connections 
+if the dependencies are “not visible to the eye.” In this case, cat boost is used (not the best algorithm), there are 
+better algorithms, such as (the best): ada boost and xgboost.
+
+### Task 4
+
+Compare the results of the algorithms (working time and quality of models). Draw conclusions.
+
+__Conclusion__\
+The results of the execution of the algorithms, measurements of their operating time and the quality of the models 
+are given in the results of the corresponding tasks.
+First we built a simple tree, then we did bugging, and finally we did boosting. Boosting works best and should be 
+the slowest, since 3000 trees are built, but each of them is built relatively quickly. Bagging is slower than 
+building a single tree in boosting and slower than building a simple tree.
+Trees work better than regression (for classification mostly), boosting works better than bugging, and bugging works 
+better than a regular tree. The first level is a tree with a choice of parameters “by eye”, the second level is 
+bugging (tuning) and the third level is boosting. Bagging uses intervals and boosting uses iterations. The result 
+of “F1 metric for test set” is much more important than “F1 metric for training set” (based on train, the machine 
+searches for connections, test is used to check the identified connections), it is this result that we check.
+Execution on a graphics processor (GPU) is faster than on a central processing unit (CPU).
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
