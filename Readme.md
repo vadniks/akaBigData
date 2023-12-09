@@ -1326,17 +1326,267 @@ trait body mass index (bmi). Tukey finds all the unique pairs and compares them.
 few differences between each other, but the first 4 have significant differences both between themselves and between 
 the rest.
 
+---
+
+## Practice 5 - Gain skills in working with classification methods, apply machine learning algorithms to solve classification problems.
+
+### Task 1
+
+Find data for classification. Pre-process the data if necessary.
+
+t1
+
+__Output__
+```
+t1:
+    species     island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0    Adelie  Torgersen              39.1             18.7              181.0
+1    Adelie  Torgersen              39.5             17.4              186.0
+2    Adelie  Torgersen              40.3             18.0              195.0
+3    Adelie  Torgersen               NaN              NaN                NaN
+4    Adelie  Torgersen              36.7             19.3              193.0
+..      ...        ...               ...              ...                ...
+339  Gentoo     Biscoe               NaN              NaN                NaN
+340  Gentoo     Biscoe              46.8             14.3              215.0
+341  Gentoo     Biscoe              50.4             15.7              222.0
+342  Gentoo     Biscoe              45.2             14.8              212.0
+343  Gentoo     Biscoe              49.9             16.1              213.0
+
+     body_mass_g     sex
+0         3750.0    MALE
+1         3800.0  FEMALE
+2         3250.0  FEMALE
+3            NaN     NaN
+4         3450.0  FEMALE
+..           ...     ...
+339          NaN     NaN
+340       4850.0  FEMALE
+341       5750.0    MALE
+342       5200.0  FEMALE
+343       5400.0    MALE
+
+[344 rows x 7 columns]
+
+    species     island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0    Adelie  Torgersen              39.1             18.7              181.0
+1    Adelie  Torgersen              39.5             17.4              186.0
+2    Adelie  Torgersen              40.3             18.0              195.0
+4    Adelie  Torgersen              36.7             19.3              193.0
+5    Adelie  Torgersen              39.3             20.6              190.0
+..      ...        ...               ...              ...                ...
+338  Gentoo     Biscoe              47.2             13.7              214.0
+340  Gentoo     Biscoe              46.8             14.3              215.0
+341  Gentoo     Biscoe              50.4             15.7              222.0
+342  Gentoo     Biscoe              45.2             14.8              212.0
+343  Gentoo     Biscoe              49.9             16.1              213.0
+
+     body_mass_g     sex
+0         3750.0    MALE
+1         3800.0  FEMALE
+2         3250.0  FEMALE
+4         3450.0  FEMALE
+5         3650.0    MALE
+..           ...     ...
+338       4925.0  FEMALE
+340       4850.0  FEMALE
+341       5750.0    MALE
+342       5200.0  FEMALE
+343       5400.0    MALE
+
+[334 rows x 7 columns]
+
+     species  island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0          0       0              39.1             18.7              181.0
+1          0       0              39.5             17.4              186.0
+2          0       0              40.3             18.0              195.0
+4          0       0              36.7             19.3              193.0
+5          0       0              39.3             20.6              190.0
+..       ...     ...               ...              ...                ...
+338        2       1              47.2             13.7              214.0
+340        2       1              46.8             14.3              215.0
+341        2       1              50.4             15.7              222.0
+342        2       1              45.2             14.8              212.0
+343        2       1              49.9             16.1              213.0
+
+     body_mass_g  sex
+0         3750.0    0
+1         3800.0    1
+2         3250.0    1
+4         3450.0    1
+5         3650.0    0
+..           ...  ...
+338       4925.0    1
+340       4850.0    1
+341       5750.0    0
+342       5200.0    1
+343       5400.0    0
+
+[334 rows x 7 columns]
+
+--------------------------------------------------
+```
+
+### Task 2
+
+Draw a histogram that shows the balance of classes. Draw conclusions.
+
+t2
+
+__Output__
+```
+t2:
+ species
+0    146
+1    146
+2    146
+Name: count, dtype: int64
+--------------------------------------------------
+```
+![](images/p5_1.png)
+
+__Conclusion__\
+The data was divided into 3 classes (based on the number of unique penguin breeds - spicies). The class with the 
+largest number of elements is zero, the class with the smallest number is first, and the second class has an average 
+number of elements. The classes are unbalanced; to correct this, the method of adding similar values to the first and 
+second classes was used to equalize the number of elements in them and, accordingly, balance all classes - 
+oversampling. There are also 2 more methods: undersampling - reduces the number of elements to a minimum, synthetic 
+data - adding data using neural networks.
+
+### Task 3
+
+Divide the sample into training and test. Training to train the model, test to check its quality.
+
+t3
+
+__Output__
+```
+t3:
+Size of Predictor Train set (350, 6)
+ Size of Predictor Test set (88, 6)
+ Size of Target Train set (350,)
+ Size of Target Test set (88,)
+--------------------------------------------------
+```
+
+__Conclusion__\
+X_train.shape - size for training set features, x_test.shape - size for test set features, y_train.shape - size for 
+target training set indicator, y_test.shape - size for test set indicator. Predictor - columns/features, target - 
+goal - what you need to teach the machine to find (rock type, remove from x). X - without the spices column. The test 
+sample (20% of the data) differs from the training sample (80% of the data) only in quantity. Based on train, the 
+machine searches for connections, test is used to check the identified connections.
+
+### Task 4
+
+Apply classification algorithms: logistic regression, SVM, KNN. Construct an error matrix based on the results of the 
+models (use confusion_matrix from sklearn.metrics).
+
+t4
+
+__Output__
+```
+t4:
+Prediction values:
+ [2 1 0 2 1 0 2 1 2 1 1 0 1 2 0 1 2 1 0 1 2 1 0 1 2 0 1 0 2 0 0 1 2 0 1 2 1
+ 0 2 0 0 1 0 2 2 0 2 0 2 1 0 0 2 2 1 1 2 1 1 2 1 1 1 0 2 0 0 1 0 1 1 1 1 2
+ 2 0 1 2 1 2 2 0 1 1 0 1 0 1]
+Target values:
+ [2 1 0 2 1 0 2 1 2 1 1 0 1 2 0 1 2 1 0 1 2 1 0 1 2 0 1 0 2 0 0 1 2 0 1 2 1
+ 0 2 0 0 1 0 2 2 0 2 0 2 1 0 0 2 2 1 1 2 1 1 2 1 1 1 0 2 0 0 1 0 1 1 1 1 2
+ 0 0 1 2 1 2 2 0 1 1 0 1 0 1]
+
+0.9872727272727272
+0.9866666666666667
+
+GridSearchCV(cv=6, estimator=SVC(),
+             param_grid={'kernel': ('linear', 'rbf', 'poly', 'sigmoid')})
+linear
+
+0.8430742255990649
+
+KNeighborsClassifier(n_neighbors=3)
+--------------------------------------------------
+```
+![](images/p5_2.png)
+![](images/p5_3.png)
+![](images/p5_4.png)
+
+__Conclusion__\
+The linear regression method showed an almost perfect result of classifying data into classes; the algorithm made only 
+one error. The SVM method showed an ideal result (several runs were carried out and the result was the same in all of 
+them). The KNN method showed average results overall and the worst among all results.
+The model is better when the classes have the same number of elements. Macro_avg - arithmetic average of the indicator 
+between classes (used when there is an imbalance, shows how accurately a small class is predicted), precision - 
+accuracy of predicting classes (% of correct answers), recall - accuracy of predicting positive values (the same as 
+precision) (positive classes - are predicted correctly) (both should be close to unity), f1-score - a general metric 
+for assessing the relationship between precision and recall, support - shows how many correct values there are, 
+macro_avg - takes the recall values, adds them and divides them by 3.
+Linear regression is a model of the dependence of a variable on one or more other variables (factors, regressors, 
+independent variables) with a linear dependence function.
+SVM - support vector machine - support vector machine, looks at the distance between each point, predicts classes 
+based on the distance between points, makes vector analysis point by point and based on the results. If a point is 
+close to a cluster of other points FROM THE LINE, then this point will have the same class as the class of the cluster 
+of those points. Having previously separated all classes, draws a line, finds the distance from the line to the points 
+and uses vector analysis. Distance from line to points. divides into classes using answers.
+There are 4 parameters - linear (simply multiplication), radial basis function (exponent), polynomial (a * b + c)^d, 
+sigmoidal (tangent). GridSearch is a method that allows you to find more accurate parameters for a model, runs through 
+all the parameters and selects the best one. grid_search_svm.best_estimator_.best_model.kernel shows the best model 
+(in this case linear). SVM is better than logistic regression and better than KNN.
+KNN is the simplest classification algorithm, it uses finding neighbors, takes a point, finds which other points it 
+is closer to, their class will be the class of this point. Also uses answers, but does not divide into classes. Works 
+worst in terms of accuracy.
+
+### Task 5
+
+Compare classification results using accuracy, precision, recall and f1-measure (you can use classification_report 
+from sklearn.metrics). Draw conclusions.
+
+t5
+
+__Output__
+```
+t5:
+              precision    recall  f1-score   support
+
+           0       1.00      0.96      0.98        28
+           1       1.00      1.00      1.00        35
+           2       0.96      1.00      0.98        25
+
+    accuracy                           0.99        88
+   macro avg       0.99      0.99      0.99        88
+weighted avg       0.99      0.99      0.99        88
 
 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        28
+           1       1.00      1.00      1.00        35
+           2       1.00      1.00      1.00        25
+
+    accuracy                           1.00        88
+   macro avg       1.00      1.00      1.00        88
+weighted avg       1.00      1.00      1.00        88
 
 
+              precision    recall  f1-score   support
+
+           0       0.64      0.82      0.72        22
+           1       0.86      0.81      0.83        37
+           2       0.96      0.83      0.89        29
+
+    accuracy                           0.82        88
+   macro avg       0.82      0.82      0.81        88
+weighted avg       0.84      0.82      0.82        88
 
 
+--------------------------------------------------
+```
 
-
-
-
-
+__Conclusion__\
+The best classification method is SVM, and the worst is KNN. It was described in more detail in the output of task 4.
+In the first two conclusions (linear regression and SVM), the results are almost everywhere one, which tells us about 
+the high quality of class prediction - these models work great. The KNN method showed an accuracy of around 82%, which 
+is also good, but if data balancing had not been carried out, its result would have been worse - during testing, an 
+accuracy of around 50% was shown.
 
 
 
