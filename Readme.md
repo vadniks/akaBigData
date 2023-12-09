@@ -1933,51 +1933,542 @@ of “F1 metric for test set” is much more important than “F1 metric for tra
 searches for connections, test is used to check the identified connections), it is this result that we check.
 Execution on a graphics processor (GPU) is faster than on a central processing unit (CPU).
 
-
-
-
-
-
-
-
-
-
-
-
 ---
 
 ## Practice 8 - Gain skills in working with teaching methods based on association rules.
 
-# TODO
+### Task 1
 
----
+Load data.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### Task *
-
-
-
-*
+t1
 
 __Output__
 ```
+              shrimp            almonds      avocado    vegetables mix  \
+0            burgers          meatballs         eggs               NaN
+1            chutney                NaN          NaN               NaN
+2             turkey            avocado          NaN               NaN
+3      mineral water               milk   energy bar  whole wheat rice
+4     low fat yogurt                NaN          NaN               NaN
+...              ...                ...          ...               ...
+7495          butter         light mayo  fresh bread               NaN
+7496         burgers  frozen vegetables         eggs      french fries
+7497         chicken                NaN          NaN               NaN
+7498        escalope          green tea          NaN               NaN
+7499            eggs    frozen smoothie  yogurt cake    low fat yogurt
 
+     green grapes whole weat flour yams cottage cheese energy drink  \
+0             NaN              NaN  NaN            NaN          NaN
+1             NaN              NaN  NaN            NaN          NaN
+2             NaN              NaN  NaN            NaN          NaN
+3       green tea              NaN  NaN            NaN          NaN
+4             NaN              NaN  NaN            NaN          NaN
+...           ...              ...  ...            ...          ...
+7495          NaN              NaN  NaN            NaN          NaN
+7496    magazines        green tea  NaN            NaN          NaN
+7497          NaN              NaN  NaN            NaN          NaN
+7498          NaN              NaN  NaN            NaN          NaN
+7499          NaN              NaN  NaN            NaN          NaN
+
+     tomato juice low fat yogurt green tea honey salad mineral water salmon  \
+0             NaN            NaN       NaN   NaN   NaN           NaN    NaN
+1             NaN            NaN       NaN   NaN   NaN           NaN    NaN
+2             NaN            NaN       NaN   NaN   NaN           NaN    NaN
+3             NaN            NaN       NaN   NaN   NaN           NaN    NaN
+4             NaN            NaN       NaN   NaN   NaN           NaN    NaN
+...           ...            ...       ...   ...   ...           ...    ...
+7495          NaN            NaN       NaN   NaN   NaN           NaN    NaN
+7496          NaN            NaN       NaN   NaN   NaN           NaN    NaN
+7497          NaN            NaN       NaN   NaN   NaN           NaN    NaN
+7498          NaN            NaN       NaN   NaN   NaN           NaN    NaN
+7499          NaN            NaN       NaN   NaN   NaN           NaN    NaN
+
+     antioxydant juice frozen smoothie spinach  olive oil
+0                  NaN             NaN     NaN        NaN
+1                  NaN             NaN     NaN        NaN
+2                  NaN             NaN     NaN        NaN
+3                  NaN             NaN     NaN        NaN
+4                  NaN             NaN     NaN        NaN
+...                ...             ...     ...        ...
+7495               NaN             NaN     NaN        NaN
+7496               NaN             NaN     NaN        NaN
+7497               NaN             NaN     NaN        NaN
+7498               NaN             NaN     NaN        NaN
+7499               NaN             NaN     NaN        NaN
+
+[7500 rows x 20 columns]
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 7500 entries, 0 to 7499
+Data columns (total 20 columns):
+ #   Column             Non-Null Count  Dtype
+---  ------             --------------  -----
+ 0   shrimp             7500 non-null   object
+ 1   almonds            5746 non-null   object
+ 2   avocado            4388 non-null   object
+ 3   vegetables mix     3344 non-null   object
+ 4   green grapes       2528 non-null   object
+ 5   whole weat flour   1863 non-null   object
+ 6   yams               1368 non-null   object
+ 7   cottage cheese     980 non-null    object
+ 8   energy drink       653 non-null    object
+ 9   tomato juice       394 non-null    object
+ 10  low fat yogurt     255 non-null    object
+ 11  green tea          153 non-null    object
+ 12  honey              86 non-null     object
+ 13  salad              46 non-null     object
+ 14  mineral water      24 non-null     object
+ 15  salmon             7 non-null      object
+ 16  antioxydant juice  3 non-null      object
+ 17  frozen smoothie    3 non-null      object
+ 18  spinach            2 non-null      object
+ 19  olive oil          0 non-null      float64
+dtypes: float64(1), object(19)
+memory usage: 1.1+ MB
+```
+
+### Task 2
+
+Visualize data (display relative and actual frequency of occurrence for the 20 most popular products on histograms).
+
+t2
+
+__Output__
+```
+mineral water        1787
+eggs                 1348
+spaghetti            1306
+french fries         1282
+chocolate            1230
+green tea             990
+milk                  972
+ground beef           737
+frozen vegetables     715
+pancakes              713
+burgers               654
+cake                  608
+cookies               603
+escalope              595
+low fat yogurt        573
+shrimp                535
+tomatoes              513
+olive oil             493
+frozen smoothie       474
+turkey                469
+Name: count, dtype: int64
+
+mineral water        0.238267
+eggs                 0.179733
+spaghetti            0.174133
+french fries         0.170933
+chocolate            0.164000
+green tea            0.132000
+milk                 0.129600
+ground beef          0.098267
+frozen vegetables    0.095333
+pancakes             0.095067
+burgers              0.087200
+cake                 0.081067
+cookies              0.080400
+escalope             0.079333
+low fat yogurt       0.076400
+shrimp               0.071333
+tomatoes             0.068400
+olive oil            0.065733
+frozen smoothie      0.063200
+turkey               0.062533
+Name: count, dtype: float64
+```
+![](images/p8_1.png)
+![](images/p8_2.png)
+
+__Conclusion__\
+The stack() function makes a column/stack (arranges from top to bottom by quantity), value_counts() - finds the most 
+frequent ones - highlighting the most frequently repeated products. We find the most frequent ones and put them on the 
+stack. You can also apply normalization to build relative frequencies and, in order to reduce them to close values, 
+otherwise the most unpopular values will be invisible on the graph, we lower the large values and raise the small 
+ones. Shape - quantity - dimension of all data. We divide each element by this dimension.
+
+### Task 3
+
+Apply the Apriori algorithm using 3 different libraries (apriori_python, apyori, efficient_apriori). Select 
+hyperparameters for the algorithms so that about 10 best rules are output.
+
+t3
+
+__Output__
+```
+burgers ['burgers', 'meatballs', 'eggs']
+
+first:
+ [[{'frozen vegetables', 'spaghetti', 'turkey', 'milk'}, {'mineral water'}, 0.9], [{'chocolate', 'frozen vegetables', 'olive oil', 'shrimp'}, {'mineral water'}, 0.9], [{'pasta', 'eggs', 'mineral water'}, {'shrimp'}, 0.9090909090909091], [{'herb & pepper', 'rice', 'mineral water'}, {'ground beef'}, 0.9090909090909091], [{'pancakes', 'ground beef', 'whole wheat rice'}, {'mineral water'}, 0.9090909090909091], [{'red wine', 'soup'}, {'mineral water'}, 0.9333333333333333], [{'pasta', 'mushroom cream sauce'}, {'escalope'}, 0.95], [{'french fries', 'pasta', 'mushroom cream sauce'}, {'escalope'}, 1.0], [{'cake', 'olive oil', 'shrimp'}, {'mineral water'}, 1.0], [{'meatballs', 'cake', 'mineral water'}, {'milk'}, 1.0], [{'olive oil', 'ground beef', 'light cream'}, {'mineral water'}, 1.0]]
+end
+
+second:
+ [RelationRecord(items=frozenset({'pasta', 'escalope', 'mushroom cream sauce'}), support=0.002533333333333333, ordered_statistics=[OrderedStatistic(items_base=frozenset({'pasta', 'mushroom cream sauce'}), items_add=frozenset({'escalope'}), confidence=0.95, lift=11.974789915966385)]), RelationRecord(items=frozenset({'red wine', 'soup', 'mineral water'}), support=0.0018666666666666666, ordered_statistics=[OrderedStatistic(items_base=frozenset({'red wine', 'soup'}), items_add=frozenset({'mineral water'}), confidence=0.9333333333333333, lift=3.917179630665921)]), RelationRecord(items=frozenset({'meatballs', 'cake', 'mineral water', 'milk'}), support=0.0010666666666666667, ordered_statistics=[OrderedStatistic(items_base=frozenset({'meatballs', 'cake', 'mineral water'}), items_add=frozenset({'milk'}), confidence=1.0, lift=7.71604938271605)]), RelationRecord(items=frozenset({'shrimp', 'cake', 'olive oil', 'mineral water'}), support=0.0012, ordered_statistics=[OrderedStatistic(items_base=frozenset({'cake', 'olive oil', 'shrimp'}), items_add=frozenset({'mineral water'}), confidence=1.0, lift=4.196978175713486)]), RelationRecord(items=frozenset({'pasta', 'shrimp', 'eggs', 'mineral water'}), support=0.0013333333333333333, ordered_statistics=[OrderedStatistic(items_base=frozenset({'pasta', 'eggs', 'mineral water'}), items_add=frozenset({'shrimp'}), confidence=0.9090909090909091, lift=12.744265080713678)]), RelationRecord(items=frozenset({'pasta', 'french fries', 'escalope', 'mushroom cream sauce'}), support=0.0010666666666666667, ordered_statistics=[OrderedStatistic(items_base=frozenset({'french fries', 'pasta', 'mushroom cream sauce'}), items_add=frozenset({'escalope'}), confidence=1.0, lift=12.605042016806722)]), RelationRecord(items=frozenset({'herb & pepper', 'rice', 'ground beef', 'mineral water'}), support=0.0013333333333333333, ordered_statistics=[OrderedStatistic(items_base=frozenset({'herb & pepper', 'rice', 'mineral water'}), items_add=frozenset({'ground beef'}), confidence=0.9090909090909091, lift=9.251264339459725)]), RelationRecord(items=frozenset({'olive oil', 'mineral water', 'ground beef', 'light cream'}), support=0.0012, ordered_statistics=[OrderedStatistic(items_base=frozenset({'olive oil', 'ground beef', 'light cream'}), items_add=frozenset({'mineral water'}), confidence=1.0, lift=4.196978175713486)]), RelationRecord(items=frozenset({'pancakes', 'ground beef', 'whole wheat rice', 'mineral water'}), support=0.0013333333333333333, ordered_statistics=[OrderedStatistic(items_base=frozenset({'pancakes', 'ground beef', 'whole wheat rice'}), items_add=frozenset({'mineral water'}), confidence=0.9090909090909091, lift=3.8154347051940785)])]
+end
+
+second beautified:
+frozenset({'pasta', 'mushroom cream sauce'}) frozenset({'escalope'})
+Support: 0.002533333333333333; Confidence: 0.95; Lift: 11.974789915966385;
+
+frozenset({'red wine', 'soup'}) frozenset({'mineral water'})
+Support: 0.0018666666666666666; Confidence: 0.9333333333333333; Lift: 3.917179630665921;
+
+frozenset({'meatballs', 'cake', 'mineral water'}) frozenset({'milk'})
+Support: 0.0010666666666666667; Confidence: 1.0; Lift: 7.71604938271605;
+
+frozenset({'cake', 'olive oil', 'shrimp'}) frozenset({'mineral water'})
+Support: 0.0012; Confidence: 1.0; Lift: 4.196978175713486;
+
+frozenset({'pasta', 'eggs', 'mineral water'}) frozenset({'shrimp'})
+Support: 0.0013333333333333333; Confidence: 0.9090909090909091; Lift: 12.744265080713678;
+
+frozenset({'french fries', 'pasta', 'mushroom cream sauce'}) frozenset({'escalope'})
+Support: 0.0010666666666666667; Confidence: 1.0; Lift: 12.605042016806722;
+
+frozenset({'herb & pepper', 'rice', 'mineral water'}) frozenset({'ground beef'})
+Support: 0.0013333333333333333; Confidence: 0.9090909090909091; Lift: 9.251264339459725;
+
+frozenset({'olive oil', 'ground beef', 'light cream'}) frozenset({'mineral water'})
+Support: 0.0012; Confidence: 1.0; Lift: 4.196978175713486;
+
+frozenset({'pancakes', 'ground beef', 'whole wheat rice'}) frozenset({'mineral water'})
+Support: 0.0013333333333333333; Confidence: 0.9090909090909091; Lift: 3.8154347051940785;
+end
+
+third:
+{mushroom cream sauce, pasta} -> {escalope} (conf: 0.950, supp: 0.003, lift: 11.975, conv: 18.413)
+{red wine, soup} -> {mineral water} (conf: 0.933, supp: 0.002, lift: 3.917, conv: 11.426)
+{cake, meatballs, mineral water} -> {milk} (conf: 1.000, supp: 0.001, lift: 7.716, conv: 870400000.000)
+{cake, olive oil, shrimp} -> {mineral water} (conf: 1.000, supp: 0.001, lift: 4.197, conv: 761733333.333)
+{eggs, mineral water, pasta} -> {shrimp} (conf: 0.909, supp: 0.001, lift: 12.744, conv: 10.215)
+{french fries, mushroom cream sauce, pasta} -> {escalope} (conf: 1.000, supp: 0.001, lift: 12.605, conv: 920666666.667)
+{herb & pepper, mineral water, rice} -> {ground beef} (conf: 0.909, supp: 0.001, lift: 9.251, conv: 9.919)
+{ground beef, light cream, olive oil} -> {mineral water} (conf: 1.000, supp: 0.001, lift: 4.197, conv: 761733333.333)
+{ground beef, pancakes, whole wheat rice} -> {mineral water} (conf: 0.909, supp: 0.001, lift: 3.815, conv: 8.379)
+{chocolate, frozen vegetables, olive oil, shrimp} -> {mineral water} (conf: 0.900, supp: 0.001, lift: 3.777, conv: 7.617)
+{frozen vegetables, milk, spaghetti, turkey} -> {mineral water} (conf: 0.900, supp: 0.001, lift: 3.777, conv: 7.617)
+end
 ```
 
 __Conclusion__\
+The task is to teach the machine to find associations between things (search for relationships, associations, search 
+for associations between things). For example: 10 people went to the grocery store - the task is to conduct an 
+inference to find connections between customers and purchases. Dataset - transactions of people, we need to find 
+associations.
+ARL algorithms - association rules learning - learning algorithms according to association rules.
+The first algorithm: rules - algorithm responses, minSup - minimum support from 0 to 1 - a measure of reliability 
+with which an associative rule expresses the association between a condition and a consequence, minimal because the 
+task is to put as little as possible in order to find the point from which to start ; minConf - minimum confidence - 
+the indicator characterizes that the association a to b is an associative rule - the algorithm is so confident that a 
+is associated with b.
+Each dataset has its own values, you need to define them so that the number of rules is not too small and not too 
+large; the smaller both values are, the more time is needed for the process; if it is too large (closer to 1), then 
+connections may not be found - you need to find a balance - the smallest at which it gives out associations; minSup - 
+it is he who influences the main thing. Both values must be between 0 and 1; minConf is so high because you need the 
+10 most accurate results.
+The first algorithm shows an association (rule) with an accuracy percentage [{'chocolate', 'frozen vegetables', 
+'olive oil', 'shrimp'}, {'mineral water'}, 0.9] - when buying these 4 things, they also bought water - The algorithm 
+is 90% confident in this, 0.9 - confidence - at least 80% (minConf) is confident of producing results.
+Second algorithm: min_lift is added - excludes the output of independent rules - more than 1 is needed so that it 
+weeds out answers with a parameter less than 1, which show independence; min_lift - the ratio of the dependence of 
+things to their independence - how dependent things are on each other - if equal to 1 - things are independent, if 
+more than 1, then there is a dependence, the more 1 the better, less than 1 - a negative impact. Also a different 
+type of output. A frozen set is unchangeable. The output contains 9 rules, since some associations come out with the 
+same accuracy - exactly 10 are not obtained.
+Third algorithm: conv in the output - persuasiveness - conviction - frequency of errors rules - how often they bought 
+beer without diapers and vice versa - the higher the 1, the better. The rule (association) {mushroom cream sauce, 
+pasta} -> {escalope} means that the algorithm is sure that escalope is also bought with cream and pasta.
+MinSup - how often elements occur in the data set, minConf - how often the rule will fire, minLift - how much 
+better (result = rule) is compared to the random frequency.
 
+### Task 4
 
----
+Apply the FP-Growth algorithm from the fpgrowth_py library. Select hyperparameters for the algorithm so that about 10 
+best rules are output.
+
+t4
+
+__Output__
+```
+[{'ground beef', 'light cream', 'olive oil'}, {'mineral water'}, 1.0]
+[{'mineral water', 'pasta', 'eggs'}, {'shrimp'}, 0.9090909090909091]
+[{'mushroom cream sauce', 'pasta', 'french fries'}, {'escalope'}, 1.0]
+[{'mushroom cream sauce', 'pasta'}, {'escalope'}, 0.95]
+[{'rice', 'mineral water', 'herb & pepper'}, {'ground beef'}, 0.9090909090909091]
+[{'cake', 'meatballs', 'mineral water'}, {'milk'}, 1.0]
+[{'red wine', 'soup'}, {'mineral water'}, 0.9333333333333333]
+[{'ground beef', 'pancakes', 'whole wheat rice'}, {'mineral water'}, 0.9090909090909091]
+[{'shrimp', 'olive oil', 'cake'}, {'mineral water'}, 1.0]
+```
+
+__Conclusion__\
+FP-Growth is a newer algorithm, works using a tree - the slowest, because its advantage is offset by the fairly good 
+optimization of the Apriori algorithm in the libraries used; minSupRatio = minSup. In the rule [{'light cream', 
+'olive oil', 'ground beef'}, {'mineral water'}, 1.0] - 1.0 is confidence.
+
+### Task 5
+
+Compare the execution time of all algorithms and build a histogram.
+
+t5
+
+__Output__
+```
+[39.639390939000805, 3.898362795999674, 0.28718328700051643, 59.603256348000286]
+
+Time for apriori from apriori_python:  39.639390939000805
+Time for apriori from apryori:  3.898362795999674
+Time for apriori from efficient_apriori:  0.28718328700051643
+Time for fpgrowth:  59.603256348000286
+```
+![](images/p8_3.png)
+
+__Conclusion__\
+The fastest algorithm is efficient apriori. All algorithms a priori scan the entire dataset, count all supports at 
+all levels - it loads the RAM very heavily on large datasets, but it still works relatively quickly. The first three 
+algorithms differ, essentially, in nothing - in each implementation the same algorithm, but in different ways - in 
+each implementation the algorithm itself is implemented differently - mathematically better or worse. In fpgrowth 
+there is a different algorithm. A priori - knowledge obtained before deduction, before the randomness of choice - 
+knowledge obtained before experience and independently of it, that is, knowledge as if known in advance.
+
+_In subsequent tasks everything is the same, but with different data. The implementations of the algorithms themselves 
+are generalized, separated into separate functions, and duplicated for convenience below._
+
+### Task 6
+
+Load data.
+
+t6
+
+__Output__
+```
+              Bread    Unnamed: 1      Unnamed: 2        Unnamed: 3  \
+0      Scandinavian  Scandinavian             NaN               NaN
+1     Hot chocolate           Jam         Cookies               NaN
+2            Muffin           NaN             NaN               NaN
+3            Coffee        Pastry           Bread               NaN
+4         Medialuna        Pastry          Muffin               NaN
+...             ...           ...             ...               ...
+9525          Bread           NaN             NaN               NaN
+9526       Truffles           Tea  Spanish Brunch  Christmas common
+9527         Muffin  Tacos/Fajita          Coffee               Tea
+9528         Coffee        Pastry             NaN               NaN
+9529      Smoothies           NaN             NaN               NaN
+
+     Unnamed: 4 Unnamed: 5 Unnamed: 6 Unnamed: 7 Unnamed: 8 Unnamed: 9  \
+0           NaN        NaN        NaN        NaN        NaN        NaN
+1           NaN        NaN        NaN        NaN        NaN        NaN
+2           NaN        NaN        NaN        NaN        NaN        NaN
+3           NaN        NaN        NaN        NaN        NaN        NaN
+4           NaN        NaN        NaN        NaN        NaN        NaN
+...         ...        ...        ...        ...        ...        ...
+9525        NaN        NaN        NaN        NaN        NaN        NaN
+9526        NaN        NaN        NaN        NaN        NaN        NaN
+9527        NaN        NaN        NaN        NaN        NaN        NaN
+9528        NaN        NaN        NaN        NaN        NaN        NaN
+9529        NaN        NaN        NaN        NaN        NaN        NaN
+
+     Unnamed: 10 Unnamed: 11
+0            NaN         NaN
+1            NaN         NaN
+2            NaN         NaN
+3            NaN         NaN
+4            NaN         NaN
+...          ...         ...
+9525         NaN         NaN
+9526         NaN         NaN
+9527         NaN         NaN
+9528         NaN         NaN
+9529         NaN         NaN
+
+[9530 rows x 12 columns]
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 9530 entries, 0 to 9529
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype
+---  ------       --------------  -----
+ 0   Bread        9207 non-null   object
+ 1   Unnamed: 1   5840 non-null   object
+ 2   Unnamed: 2   2959 non-null   object
+ 3   Unnamed: 3   1505 non-null   object
+ 4   Unnamed: 4   596 non-null    object
+ 5   Unnamed: 5   245 non-null    object
+ 6   Unnamed: 6   91 non-null     object
+ 7   Unnamed: 7   36 non-null     object
+ 8   Unnamed: 8   13 non-null     object
+ 9   Unnamed: 9   9 non-null      object
+ 10  Unnamed: 10  4 non-null      object
+ 11  Unnamed: 11  1 non-null      object
+dtypes: object(12)
+memory usage: 893.6+ KB
+```
+
+### Task 7
+
+Visualize data (display relative and actual frequency of occurrence for the 20 most popular products on histograms).
+
+t7
+
+__Output__
+```
+Coffee           5471
+Bread            3324
+Tea              1435
+Cake             1025
+Pastry            856
+Sandwich          771
+Medialuna         616
+Hot chocolate     590
+Cookies           540
+Brownie           379
+Farm House        374
+Muffin            370
+Alfajores         369
+Juice             369
+Soup              342
+Scone             327
+Toast             318
+Scandinavian      277
+Truffles          193
+Coke              185
+Name: count, dtype: int64
+
+Coffee           0.574082
+Bread            0.348793
+Tea              0.150577
+Cake             0.107555
+Pastry           0.089822
+Sandwich         0.080902
+Medialuna        0.064638
+Hot chocolate    0.061910
+Cookies          0.056663
+Brownie          0.039769
+Farm House       0.039244
+Muffin           0.038825
+Alfajores        0.038720
+Juice            0.038720
+Soup             0.035887
+Scone            0.034313
+Toast            0.033368
+Scandinavian     0.029066
+Truffles         0.020252
+Coke             0.019412
+Name: count, dtype: float64
+```
+![](images/p8_4.png)
+![](images/p8_5.png)
+
+### Task 8
+
+Apply the Apriori algorithm using 3 different libraries (apriori_python, apyori, efficient_apriori). Select 
+hyperparameters for the algorithms so that about 10 best rules are output.
+
+t8
+
+__Output__
+```
+Scandinavian ['Scandinavian', 'Scandinavian']
+
+first:
+ [[{'Salad', 'Cake'}, {'Coffee'}, 0.7692307692307693], [{'Juice', 'Pastry'}, {'Coffee'}, 0.7727272727272727], [{'Scone', 'Cookies'}, {'Coffee'}, 0.7894736842105263], [{'Keeping It Local'}, {'Coffee'}, 0.8095238095238095], [{'Extra Salami or Feta'}, {'Coffee'}, 0.8157894736842105], [{'Salad', 'Sandwich'}, {'Coffee'}, 0.8333333333333334], [{'Vegan mincepie', 'Cake'}, {'Coffee'}, 0.8333333333333334], [{'Sandwich', 'Hearty & Seasonal'}, {'Coffee'}, 0.8571428571428571], [{'Pastry', 'Toast'}, {'Coffee'}, 0.8666666666666667], [{'Salad', 'Extra Salami or Feta'}, {'Coffee'}, 0.875]]
+end
+
+second:
+ [RelationRecord(items=frozenset({'Extra Salami or Feta', 'Coffee'}), support=0.0032528856243441762, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Extra Salami or Feta'}), items_add=frozenset({'Coffee'}), confidence=0.8157894736842104, lift=1.7169774037567413)]), RelationRecord(items=frozenset({'Coffee', 'Keeping It Local'}), support=0.005351521511017838, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Keeping It Local'}), items_add=frozenset({'Coffee'}), confidence=0.8095238095238095, lift=1.7037901733131415)]), RelationRecord(items=frozenset({'Salad', 'Coffee', 'Cake'}), support=0.001049317943336831, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Salad', 'Cake'}), items_add=frozenset({'Coffee'}), confidence=0.7692307692307692, lift=1.6189861375373742)]), RelationRecord(items=frozenset({'Coffee', 'Cake', 'Vegan mincepie'}), support=0.001049317943336831, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Vegan mincepie', 'Cake'}), items_add=frozenset({'Coffee'}), confidence=0.8333333333333334, lift=1.7539016489988222)]), RelationRecord(items=frozenset({'Coffee', 'Scone', 'Cookies'}), support=0.0015739769150052466, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Scone', 'Cookies'}), items_add=frozenset({'Coffee'}), confidence=0.7894736842105262, lift=1.6615910358936208)]), RelationRecord(items=frozenset({'Extra Salami or Feta', 'Coffee', 'Salad'}), support=0.0014690451206715634, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Extra Salami or Feta', 'Salad'}), items_add=frozenset({'Coffee'}), confidence=0.875, lift=1.8415967314487631)]), RelationRecord(items=frozenset({'Sandwich', 'Coffee', 'Hearty & Seasonal'}), support=0.0012591815320041973, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Sandwich', 'Hearty & Seasonal'}), items_add=frozenset({'Coffee'}), confidence=0.8571428571428572, lift=1.8040131246845028)]), RelationRecord(items=frozenset({'Coffee', 'Juice', 'Pastry'}), support=0.0017838405036726128, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Juice', 'Pastry'}), items_add=frozenset({'Coffee'}), confidence=0.7727272727272728, lift=1.6263451654352716)]), RelationRecord(items=frozenset({'Coffee', 'Pastry', 'Toast'}), support=0.0013641133263378805, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Pastry', 'Toast'}), items_add=frozenset({'Coffee'}), confidence=0.8666666666666667, lift=1.8240577149587751)]), RelationRecord(items=frozenset({'Salad', 'Coffee', 'Sandwich'}), support=0.0015739769150052466, ordered_statistics=[OrderedStatistic(items_base=frozenset({'Salad', 'Sandwich'}), items_add=frozenset({'Coffee'}), confidence=0.8333333333333333, lift=1.753901648998822)])]
+end
+
+second beautified:
+frozenset({'Extra Salami or Feta'}) frozenset({'Coffee'})
+Support: 0.0032528856243441762; Confidence: 0.8157894736842104; Lift: 1.7169774037567413;
+
+frozenset({'Keeping It Local'}) frozenset({'Coffee'})
+Support: 0.005351521511017838; Confidence: 0.8095238095238095; Lift: 1.7037901733131415;
+
+frozenset({'Salad', 'Cake'}) frozenset({'Coffee'})
+Support: 0.001049317943336831; Confidence: 0.7692307692307692; Lift: 1.6189861375373742;
+
+frozenset({'Vegan mincepie', 'Cake'}) frozenset({'Coffee'})
+Support: 0.001049317943336831; Confidence: 0.8333333333333334; Lift: 1.7539016489988222;
+
+frozenset({'Scone', 'Cookies'}) frozenset({'Coffee'})
+Support: 0.0015739769150052466; Confidence: 0.7894736842105262; Lift: 1.6615910358936208;
+
+frozenset({'Extra Salami or Feta', 'Salad'}) frozenset({'Coffee'})
+Support: 0.0014690451206715634; Confidence: 0.875; Lift: 1.8415967314487631;
+
+frozenset({'Sandwich', 'Hearty & Seasonal'}) frozenset({'Coffee'})
+Support: 0.0012591815320041973; Confidence: 0.8571428571428572; Lift: 1.8040131246845028;
+
+frozenset({'Juice', 'Pastry'}) frozenset({'Coffee'})
+Support: 0.0017838405036726128; Confidence: 0.7727272727272728; Lift: 1.6263451654352716;
+
+frozenset({'Pastry', 'Toast'}) frozenset({'Coffee'})
+Support: 0.0013641133263378805; Confidence: 0.8666666666666667; Lift: 1.8240577149587751;
+
+frozenset({'Salad', 'Sandwich'}) frozenset({'Coffee'})
+Support: 0.0015739769150052466; Confidence: 0.8333333333333333; Lift: 1.753901648998822;
+end
+
+third:
+{Extra Salami or Feta} -> {Coffee} (conf: 0.816, supp: 0.003, lift: 1.717, conv: 2.849)
+{Keeping It Local} -> {Coffee} (conf: 0.810, supp: 0.005, lift: 1.704, conv: 2.756)
+{Cake, Salad} -> {Coffee} (conf: 0.769, supp: 0.001, lift: 1.619, conv: 2.274)
+{Cake, Vegan mincepie} -> {Coffee} (conf: 0.833, supp: 0.001, lift: 1.754, conv: 3.149)
+{Cookies, Scone} -> {Coffee} (conf: 0.789, supp: 0.002, lift: 1.662, conv: 2.493)
+{Extra Salami or Feta, Salad} -> {Coffee} (conf: 0.875, supp: 0.001, lift: 1.842, conv: 4.199)
+{Hearty & Seasonal, Sandwich} -> {Coffee} (conf: 0.857, supp: 0.001, lift: 1.804, conv: 3.674)
+{Juice, Pastry} -> {Coffee} (conf: 0.773, supp: 0.002, lift: 1.626, conv: 2.309)
+{Pastry, Toast} -> {Coffee} (conf: 0.867, supp: 0.001, lift: 1.824, conv: 3.937)
+{Salad, Sandwich} -> {Coffee} (conf: 0.833, supp: 0.002, lift: 1.754, conv: 3.149)
+end
+```
+
+### Task 9
+
+Apply the FP-Growth algorithm from the fpgrowth_py library. Select hyperparameters for the algorithm so that about 10 
+best rules are output.
+
+t9
+
+__Output__
+```
+[{'Mighty Protein'}, {'Coffee'}, 0.8181818181818182]
+[{'Extra Salami or Feta', 'Salad'}, {'Coffee'}, 0.875]
+[{'Extra Salami or Feta'}, {'Coffee'}, 0.8157894736842105]
+[{'Extra Salami or Feta'}, {'Coffee'}, 0.8157894736842105]
+[{'Vegan mincepie', 'Cake'}, {'Coffee'}, 0.8333333333333334]
+[{'Salad', 'Sandwich'}, {'Coffee'}, 0.8333333333333334]
+[{'Sandwich', 'Hearty & Seasonal'}, {'Coffee'}, 0.8571428571428571]
+[{'Pastry', 'Toast'}, {'Coffee'}, 0.8666666666666667]
+[{'Sandwich', 'Cake', 'Soup'}, {'Coffee'}, 0.8181818181818182]
+[{'Sandwich', 'Hot chocolate', 'Cookies'}, {'Coffee'}, 0.8571428571428571]
+[{'Sandwich', 'Pastry'}, {'Coffee'}, 0.8181818181818182]
+```
+
+### Task 10
+
+Compare the execution time of all algorithms and build a histogram.
+
+t10
+
+__Output__
+```
+[1.8197862629995143, 0.06134650999956648, 0.016998387000057846, 3.7827288939997743]
+
+Time for apriori from apriori_python:  1.8197862629995143
+Time for apriori from apryori:  0.06134650999956648
+Time for apriori from efficient_apriori:  0.016998387000057846
+Time for fpgrowth:  3.7827288939997743
+```
+![](images/p8_6.png)
+
+__Conclusion__\
+Detailed findings for each task type are described above. As a result, it can be noted that the algorithm in the 
+implementation of the efficient apriori library works many times faster than the algorithms from the implementations 
+of the apriori python and fpgrowth libraries, the difference in time with the algorithm in the implementation of the 
+apriori library works slightly slower than efficient apriori. All algorithms produce rules/associations with a 
+sufficient level of quality and confirm each other's results, which indicates the correctness of their work.
