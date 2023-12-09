@@ -1588,16 +1588,43 @@ the high quality of class prediction - these models work great. The KNN method s
 is also good, but if data balancing had not been carried out, its result would have been worse - during testing, an 
 accuracy of around 50% was shown.
 
+---
 
+## Practice 6 - Gain skills in working with clusterization methods, apply machine learning algorithms to solve clusterization problems.
 
-
-
+# TODO
 
 ---
 
+## Practice 7 - Gain skills in working with ensemble learning methods.
+
+# TODO
+
+---
+
+## Practice 8 - Gain skills in working with teaching methods based on association rules.
+
+# TODO
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### Task *
 
-
+_# template_
 
 *
 
