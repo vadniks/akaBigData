@@ -342,21 +342,633 @@ is less than a second. The likely reason is that only the first 1000 data items 
 so both methods are fast, but if you increase the number of data items, the UMAP method 
 is faster.
 
+---
+
+## Practice 3 - Familiarize yourself with various methods of statistical research
+
+### Task 1
+
+Load data from file
+
+### Task 2
+
+Use the describe() method to view statistics on the data. Draw conclusions.
+
+t1-t2
+
+__Output__
+```
+t2:
+   age     sex     bmi  children smoker     region      charges
+0   19  female  27.900         0    yes  southwest  16884.92400
+1   18    male  33.770         1     no  southeast   1725.55230
+2   28    male  33.000         3     no  southeast   4449.46200
+3   33    male  22.705         0     no  northwest  21984.47061
+4   32    male  28.880         0     no  northwest   3866.85520
+
+               age          bmi     children       charges
+count  1338.000000  1338.000000  1338.000000   1338.000000
+mean     39.207025    30.663397     1.094918  13270.422265
+std      14.049960     6.098187     1.205493  12110.011237
+min      18.000000    15.960000     0.000000   1121.873900
+25%      27.000000    26.296250     0.000000   4740.287150
+50%      39.000000    30.400000     1.000000   9382.033000
+75%      51.000000    34.693750     2.000000  16639.912515
+max      64.000000    53.130000     5.000000  63770.428010
+--------------------------------------------------
+```
+
+__Conclusion__\
+You can see a count of all the attributes of the dataset, and also that age in the dataset goes 
+from 18 to 64, bmi (body mass index) from 15.9 to 53, children (number of children) from 0 to 5, 
+charges (expenses) from 1121.9 up to 63770. Average value (mean) of each attribute: 39 for age, 
+30.6 for bmi, 1 for children, 13270 for charges. Standard deviation is an estimate for a sample 
+that allows you to evaluate how much the data changes relative to their average: 14 for age, 6 
+for bmi, 1 for children, 12110 for charges. Each subsequent quarter increases (25%, 50%, 75%, 
+100%), the charges attribute increases more strongly. The count attribute is the same everywhere.
+
+### Task 3
+
+Construct histograms for numerical indicators. Draw conclusions.
+
+t3
+
+__Output__
+![](images/p3_1.png)
+
+__Conclusion__\
+The x-axis indicates the values of the variable, and the y-axis indicates how often the value of 
+this variable occurs in a certain interval. The interval length was chosen to be 15. From left to 
+right, top to bottom, you can see how often the value of the variable appears. Charges values close 
+to zero appear more often. The most common age value is close to zero, while the rest are evenly 
+distributed. The bmi values have a normal distribution. The most common value of children is zero; 
+the larger the number, the less repeated it is.
+
+### Task 4
+
+Find measures of central tendency and measures of dispersion for body mass index (bmi) and charges 
+(charges). Display results as text and in histograms (3 vertical lines). Add a legend to graphs. 
+Draw conclusions.
+
+t4
+
+__Output__
+```
+t4:
+Mean BMI = 30.663397
+Mode BMI:  32.3
+Median BMI = 30.400000
+
+Mean Charges = 13270.422265
+Mode Charges:  1639.5631
+Median Charges = 9382.033000
+
+Standard Deviation of charges:  12110.011236694001
+Range of charges:  62648.554110000005
+Quarter range of charges using numpy:  11879.80148
+Quarter range of charges with scipy:  11879.80148
+
+Standard Deviation of bmi:  6.098186911679014
+Range of bmi:  37.17
+Quarter range of bmi using numpy:  8.384999999999998
+Quarter range of bmi with scipy:  8.384999999999998
+--------------------------------------------------
+```
+![](images/p3_2.png)
 
 
+__Conclusion__\
+The bmi graph shows that the values in it have a normal distribution. According to the charges graph, 
+from left to right the values are repeated less. You can also see from the bmi graph that mode and 
+median are close to each other - the mean and central values are almost the same. The most common 
+value is mode. In charges, the mode value is the most repeated (on the left), also in charges there 
+is much more variability in values, the average differs from the central one. The measure of dispersion 
+includes: Standard Deviation, Range, Quarter range (the difference between the 1st and 3rd quarters 
+is the most common). The range y of the charges attribute is very large (max – min).
+
+### Task 5
+
+Construct a box-plot for numerical indicators. The names of the graphs must correspond to the names 
+of the features. Draw conclusions.
+
+t5
+
+__Output__
+![](images/p3_3.png)
+![](images/p3_4.png)
+
+__Conclusion__\
+In bmi and charges, the points outside the “whiskers” (quarters 1 and 3 (second 50%)) are outliers (values 
+that are very different from other values, they are very rare), the orange line inside the “box” (clusters 
+of average values) – median, outliers outside the category are too large to characterize the category. The 
+graph shows the distribution of information in a certain category. Categories: age, bmi, charges and children. 
+There are outliers only in the bmi and charges attributes, and these outliers are strictly greater than the 
+maximum; in the rest they are not present. In charges, half of the values are outliers.
+
+### Task 6
+
+Using the charges or imb attribute, check whether the central limit theorem holds. Use different sample 
+lengths n. Number of samples = 300. Display the result in the form of histograms. Find the standard deviation 
+and mean for the resulting distributions. Draw conclusions.
+
+t6
+
+__Output__
+```
+t6:
+Mean of  n=1    12198.327287   Std of  n=1    10855.966798
+Mean of  n=10    13357.920196   Std of  n=10    4062.840514
+Mean of  n=50    13118.524016   Std of  n=50    1833.114858
+Mean of  n=100    13378.232319   Std of  n=100    1197.308316
+Mean of  n=150    13309.708941   Std of  n=150    800.090288
+Mean of  n=200    13260.895946   Std of  n=200    735.038002
+
+Standard Deviation:  12110.011236694001
+Range:  62648.554110000005
+Quarter range using numpy:  11879.80148
+Quarter range with scipy:  11879.80148
+--------------------------------------------------
+```
+
+![](images/p3_5.png)
+![](images/p3_6.png)
+
+__Conclusion__\
+Dataset values pass the central limit theorem in general and for various sample lengths (except n = 1) in particular. 
+The larger n, the closer to the ideal form of the normal distribution. The value n is the length of samples. All mean 
+values are around 12 thousand. The larger the sample length, the smaller the standard deviation and the closer the 
+graph is to a very accurate form of normal distribution.
+
+### Task 7
+
+Construct 95% and 99% confidence intervals for the mean expenditure and mean BMI.
+
+t7
+
+__Output__
+```
+t7:
+90% confidence interval for Charges:  (12725.864762144516, 13814.979768137997)
+95% confidence interval for Charges:  (12621.54197822916, 13919.302552053354)
+90% confidence interval for BMI:  (30.389176352638128, 30.93761736933497)
+95% confidence interval for BMI:  (30.336642971534822, 30.990150750438275)
+--------------------------------------------------
+```
+
+### Task 8
+
+Check the distribution of the following characteristics for normality: body mass index, expenses. Formulate the null 
+and alternative hypotheses. For each characteristic, use the KS test and q-q plot. Draw conclusions based on the 
+obtained p-values.
+
+t8
+
+__Output__
+```
+t8:
+KstestResult(statistic=0.02613962682509635, pvalue=0.31453976932347394, statistic_location=28.975, statistic_sign=1)
+KstestResult(statistic=0.18846204110424236, pvalue=4.39305730768502e-42, statistic_location=13470.86, statistic_sign=1)
+--------------------------------------------------
+```
+![](images/p3_7.png)
+![](images/p3_8.png)
+
+__Conclusion__\
+The task is to test the null and alternative hypotheses, null – there is no difference (or there are few significant 
+differences), alternative – there are significant differences (visible differences). They are determined by the p-level 
+value (pvalue) - if it is less than 0.05, then the null hypothesis is rejected and the alternative is accepted, if it 
+is more, vice versa. Hypotheses are always about difference. Normality – comparison of the dependence of the original 
+sample values with the values of an ideal normal distribution. If the values follow the line exactly, then they are 
+normally distributed. If the deviations are higher than the straight line, then the values are higher than normal and 
+vice versa. Conclusions from the graphs: the bmi graph shows a fairly normal distribution, but the charges graph is 
+very different from the normal distribution. The x-axis shows the standard normal distribution, and the y-axis shows 
+the distribution of the sample under study. Null hypothesis - we assume that there are no differences between the ideal 
+normal distribution and the dependence of our initial values (charges, for example). Alternative hypothesis - we assume 
+that significant differences exist between the sample values and the normal distribution. For the bmi characteristic, 
+the null hypothesis was chosen and the alternative was rejected, and for the charges characteristic, vice versa. The 
+essence of the KS test is to assess the significance of the differences between two samples, as in the previous test 
+(q-q). Here too, hypotheses are selected based on the pvalue. For the bmi feature, the pvalue is higher than 0.05, 
+which means we need to accept the null hypothesis, since the sample has a normal distribution. The charges attribute 
+has a much smaller pvalue, which means the null hypothesis is rejected since the sample does not have a normal 
+distribution.
+
+### Task 9
+
+Load data from file
+
+t9
+
+__Output__
+```
+t9:
+          dateRep  day  month  year  cases  deaths countriesAndTerritories  \
+0      14/12/2020   14     12  2020    746       6             Afghanistan
+1      13/12/2020   13     12  2020    298       9             Afghanistan
+2      12/12/2020   12     12  2020    113      11             Afghanistan
+3      12/12/2020   12     12  2020    113      11             Afghanistan
+4      11/12/2020   11     12  2020     63      10             Afghanistan
+...           ...  ...    ...   ...    ...     ...                     ...
+61899  25/03/2020   25      3  2020      0       0                Zimbabwe
+61900  24/03/2020   24      3  2020      0       1                Zimbabwe
+61901  23/03/2020   23      3  2020      0       0                Zimbabwe
+61902  22/03/2020   22      3  2020      1       0                Zimbabwe
+61903  21/03/2020   21      3  2020      1       0                Zimbabwe
+
+      geoId countryterritoryCode  popData2019 continentExp  \
+0        AF                  AFG   38041757.0         Asia
+1        AF                  AFG   38041757.0         Asia
+2        AF                  AFG   38041757.0         Asia
+3        AF                  AFG   38041757.0         Asia
+4        AF                  AFG   38041757.0         Asia
+...     ...                  ...          ...          ...
+61899    ZW                  ZWE   14645473.0       Africa
+61900    ZW                  ZWE   14645473.0       Africa
+61901    ZW                  ZWE   14645473.0       Africa
+61902    ZW                  ZWE   14645473.0       Africa
+61903    ZW                  ZWE   14645473.0       Africa
+
+       Cumulative_number_for_14_days_of_COVID-19_cases_per_100000
+0                                               9.013779
+1                                               7.052776
+2                                               6.868768
+3                                               6.868768
+4                                               7.134266
+...                                                  ...
+61899                                                NaN
+61900                                                NaN
+61901                                                NaN
+61902                                                NaN
+61903                                                NaN
+
+[61904 rows x 12 columns]
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 61904 entries, 0 to 61903
+Data columns (total 12 columns):
+ #   Column                                             Non-Null Count  Dtype
+---  ------                                             --------------  -----
+ 0   dateRep                                            61904 non-null  object
+ 1   day                                                61904 non-null  int64
+ 2   month                                              61904 non-null  int64
+ 3   year                                               61904 non-null  int64
+ 4   cases                                              61904 non-null  int64
+ 5   deaths                                             61904 non-null  int64
+ 6   countriesAndTerritories                            61904 non-null  object
+ 7   geoId                                              61629 non-null  object
+ 8   countryterritoryCode                               61781 non-null  object
+ 9   popData2019                                        61781 non-null  float64
+ 10  continentExp                                       61904 non-null  object
+ 11  Cumulative_number_for_14_days_of_COVID-19_cases_per_100000
+                                                        59025 non-null  float64
+dtypes: float64(2), int64(5), object(5)
+memory usage: 5.7+ MB
+--------------------------------------------------
+```
+
+### Task 10
+
+Check the data for missing values. Display the number of missing values as a percentage. Remove the two features that 
+have the most missing values. For the remaining features, process gaps: for a categorical feature, use filling with 
+the default value (for example, “other”), for a numeric feature, use filling with the median value. Show that there 
+are no more gaps in the data.
+
+t10
+
+__Output__
+```
+t10:
+ dateRep : 0.0%
+ day : 0.0%
+ month : 0.0%
+ year : 0.0%
+ cases : 0.0%
+ deaths : 0.0%
+ countriesAndTerritories : 0.0%
+ geoId : 0.4%
+ countryterritoryCode : 0.2%
+ popData2019 : 0.2%
+ continentExp : 0.0%
+ Cumulative_number_for_14_days_of_COVID-19_cases_per_100000 : 4.7%
+
+          dateRep  day  month  year  cases  deaths countriesAndTerritories  \
+0      14/12/2020   14     12  2020    746       6             Afghanistan
+1      13/12/2020   13     12  2020    298       9             Afghanistan
+2      12/12/2020   12     12  2020    113      11             Afghanistan
+3      12/12/2020   12     12  2020    113      11             Afghanistan
+4      11/12/2020   11     12  2020     63      10             Afghanistan
+...           ...  ...    ...   ...    ...     ...                     ...
+61899  25/03/2020   25      3  2020      0       0                Zimbabwe
+61900  24/03/2020   24      3  2020      0       1                Zimbabwe
+61901  23/03/2020   23      3  2020      0       0                Zimbabwe
+61902  22/03/2020   22      3  2020      1       0                Zimbabwe
+61903  21/03/2020   21      3  2020      1       0                Zimbabwe
+
+      countryterritoryCode  popData2019 continentExp
+0                      AFG   38041757.0         Asia
+1                      AFG   38041757.0         Asia
+2                      AFG   38041757.0         Asia
+3                      AFG   38041757.0         Asia
+4                      AFG   38041757.0         Asia
+...                    ...          ...          ...
+61899                  ZWE   14645473.0       Africa
+61900                  ZWE   14645473.0       Africa
+61901                  ZWE   14645473.0       Africa
+61902                  ZWE   14645473.0       Africa
+61903                  ZWE   14645473.0       Africa
+
+[61904 rows x 10 columns]
+
+ dateRep : 0.0%
+ day : 0.0%
+ month : 0.0%
+ year : 0.0%
+ cases : 0.0%
+ deaths : 0.0%
+ countriesAndTerritories : 0.0%
+ countryterritoryCode : 0.0%
+ popData2019 : 0.0%
+ continentExp : 0.0%
+--------------------------------------------------
+```
+
+### Task 11
+
+View statistics on data using describe(). Draw conclusions about which features contain outliers. See for which 
+countries the number of deaths per day exceeded 3000 and how many such days there were.
+
+t11
+
+__Output__
+```
+t11:
+                day         month          year          cases        deaths  \
+count  61904.000000  61904.000000  61904.000000   61904.000000  61904.000000
+mean      15.629232      7.067104   2019.998918    1155.079026     26.053987
+std        8.841624      2.954816      0.032881    6779.010824    131.222948
+min        1.000000      1.000000   2019.000000   -8261.000000  -1918.000000
+25%        8.000000      5.000000   2020.000000       0.000000      0.000000
+50%       15.000000      7.000000   2020.000000      15.000000      0.000000
+75%       23.000000     10.000000   2020.000000     273.000000      4.000000
+max       31.000000     12.000000   2020.000000  234633.000000   4928.000000
+
+        popData2019
+count  6.190400e+04
+mean   4.091909e+07
+std    1.529798e+08
+min    8.150000e+02
+25%    1.324820e+06
+50%    7.169456e+06
+75%    2.851583e+07
+max    1.433784e+09
+
+0        False
+1        False
+2        False
+3        False
+4        False
+         ...
+61899    False
+61900    False
+61901    False
+61902    False
+61903    False
+Name: deaths, Length: 61904, dtype: bool
+
+There are 11 days where deaths >= 3000
+
+          dateRep  day  month  year   cases  deaths   countriesAndTerritories  \
+2118   02/10/2020    2     10  2020   14001    3351                 Argentina
+16908  07/09/2020    7      9  2020   -8261    3800                   Ecuador
+37038  09/10/2020    9     10  2020    4936    3013                    Mexico
+44888  14/08/2020   14      8  2020    9441    3935                      Peru
+44909  24/07/2020   24      7  2020    4546    3887                      Peru
+59007  12/12/2020   12     12  2020  234633    3343  United_States_of_America
+59009  10/12/2020   10     12  2020  220025    3124  United_States_of_America
+59016  03/12/2020    3     12  2020  203311    3190  United_States_of_America
+59239  24/04/2020   24      4  2020   26543    3179  United_States_of_America
+59245  18/04/2020   18      4  2020   30833    3770  United_States_of_America
+59247  16/04/2020   16      4  2020   30148    4928  United_States_of_America
+
+      countryterritoryCode  popData2019 continentExp
+2118                   ARG   44780675.0      America
+16908                  ECU   17373657.0      America
+37038                  MEX  127575529.0      America
+44888                  PER   32510462.0      America
+44909                  PER   32510462.0      America
+59007                  USA  329064917.0      America
+59009                  USA  329064917.0      America
+59016                  USA  329064917.0      America
+59239                  USA  329064917.0      America
+59245                  USA  329064917.0      America
+59247                  USA  329064917.0      America
+--------------------------------------------------
+```
+
+![](images/p3_9.png)
+
+__Conclusion__\
+Outliers are present in the cases and deaths characteristics because there the minima are negative (can be seen from 
+describe()) – the values to the left of the significant minimum. It is also clear from the general graph that outliers 
+are also present in the year and popData2019 features. The latter has more of them than the others. A total of 11 days 
+were found when the number of deaths exceeded 3000. Countries in which these days were recorded: Argentina (Argentina), 
+Ecuador (Ecuador), Mexico (Mexico), Peru (Peru), United_States_of_America (USA).
+
+### Task 12
+
+Find data duplication. Remove duplicates.
+
+t12
+
+__Output__
+```
+t12:
+          dateRep  day  month  year  cases  deaths countriesAndTerritories  \
+3      12/12/2020   12     12  2020    113      11             Afghanistan
+218    12/05/2020   12      5  2020    285       2             Afghanistan
+48010  29/05/2020   29      5  2020      0       0             Saint_Lucia
+48073  28/03/2020   28      3  2020      0       0             Saint_Lucia
+
+      countryterritoryCode  popData2019 continentExp
+3                      AFG   38041757.0         Asia
+218                    AFG   38041757.0         Asia
+48010                  LCA     182795.0      America
+48073                  LCA     182795.0      America
+
+          dateRep  day  month  year  cases  deaths countriesAndTerritories  \
+0      14/12/2020   14     12  2020    746       6             Afghanistan
+1      13/12/2020   13     12  2020    298       9             Afghanistan
+2      12/12/2020   12     12  2020    113      11             Afghanistan
+4      11/12/2020   11     12  2020     63      10             Afghanistan
+5      10/12/2020   10     12  2020    202      16             Afghanistan
+...           ...  ...    ...   ...    ...     ...                     ...
+61899  25/03/2020   25      3  2020      0       0                Zimbabwe
+61900  24/03/2020   24      3  2020      0       1                Zimbabwe
+61901  23/03/2020   23      3  2020      0       0                Zimbabwe
+61902  22/03/2020   22      3  2020      1       0                Zimbabwe
+61903  21/03/2020   21      3  2020      1       0                Zimbabwe
+
+      countryterritoryCode  popData2019 continentExp
+0                      AFG   38041757.0         Asia
+1                      AFG   38041757.0         Asia
+2                      AFG   38041757.0         Asia
+4                      AFG   38041757.0         Asia
+5                      AFG   38041757.0         Asia
+...                    ...          ...          ...
+61899                  ZWE   14645473.0       Africa
+61900                  ZWE   14645473.0       Africa
+61901                  ZWE   14645473.0       Africa
+61902                  ZWE   14645473.0       Africa
+61903                  ZWE   14645473.0       Africa
+
+[61900 rows x 10 columns]
+
+Empty DataFrame
+Columns: [dateRep, day, month, year, cases, deaths, countriesAndTerritories, countryterritoryCode, popData2019, continentExp]
+Index: []
+--------------------------------------------------
+```
+
+### Task 13
+
+Load data from the file “bmi.csv”. Take two samples from there. One sample is the body mass index of people from the 
+northwest region, the second sample is the body mass index of people from the southwest region. Compare the means of 
+these samples using Student's t-test. Preliminarily check samples for normality (Shopiro-Wilk test) and homogeneity of 
+variance (Bartlett test).
+
+t13
+
+__Output__
+```
+t13:
+      bmi     region
+0  22.705  northwest
+1  28.880  northwest
+2  27.740  northwest
+3  25.840  northwest
+4  28.025  northwest
+
+        bmi     region
+0    22.705  northwest
+1    28.880  northwest
+2    27.740  northwest
+3    25.840  northwest
+4    28.025  northwest
+..      ...        ...
+320  26.315  northwest
+321  31.065  northwest
+322  25.935  northwest
+323  30.970  northwest
+324  29.070  northwest
+
+[325 rows x 2 columns]
+
+      bmi     region
+325  27.9  southwest
+326  34.4  southwest
+327  24.6  southwest
+328  40.3  southwest
+329  35.3  southwest
+..    ...        ...
+645  20.6  southwest
+646  38.6  southwest
+647  33.4  southwest
+648  44.7  southwest
+649  25.8  southwest
+
+[325 rows x 2 columns]
+
+The variance of both data groups: 26.305165492071005 32.29731162130177
+
+TtestResult(statistic=-3.2844171500398582, pvalue=0.001076958496307695, df=648.0)
+
+(-3.2844171500398667, 0.0010769584963076643, 648.0)
+
+ShapiroResult(statistic=0.9954646825790405, pvalue=0.4655335247516632)
+ ShapiroResult(statistic=0.9949268698692322, pvalue=0.3629520535469055)
+
+BartlettResult(statistic=3.4000745256459286, pvalue=0.06519347353581818)
+--------------------------------------------------
+```
+
+__Conclusion__\
+Null hypothesis - there will be no significant difference between the average bmi values of the northwest and southwest 
+regions, alternative - there will be a difference. Since 0.001 (T test) is less than 0.005, the null theory must be 
+rejected - there is a significant difference between the average bmi values of the two regions. Normality: in both 
+tests the pvalue (Shapiro) is above 0.05, which means we need to accept the null hypothesis - bmi in both regions has 
+a normal distribution. Homogeneity – testing the equality of depressions in two samples. Null hypothesis – the samples 
+under consideration are obtained from general populations with the same depression. The alternative hypothesis is the 
+opposite. Since 0.06 (Barlett) > 0.05 – we accept the null hypothesis – the depressions of the samples are the same – 
+there are no significant differences between the bmi values of the regions.
+
+### Task 14
+
+The dice was rolled 600 times and the following results were obtained (see Listing 13). Use the Chi-square test to 
+check whether the resulting distribution is uniform. Use the scipy.stats.chisquare() function.
+
+t14
+
+__Output__
+```
+t14:
+   N  Observed  Expected
+0  1        97       100
+1  2        98       100
+2  3       109       100
+3  4        95       100
+4  5        97       100
+5  6       104       100
+
+Power_divergenceResult(statistic=1.44, pvalue=0.9198882077437889)
+--------------------------------------------------
+```
+
+__Conclusion__\
+The null hypothesis is that there will be a uniform distribution in the number of drops. Since 0.92 > 0.05, we accept 
+the null hypothesis – uniform distribution.
+
+### Task 15
+
+Use the Chi-square test to test whether the variables are dependent. Create a dataframe using the following code 
+(see Listing 14). Use the scipy.stats.chi2_contingency() function. Does marital status affect employment?
+
+t15
+
+__Output__
+```
+t15:
+                        Married  Civil marriage  Isn't in relationships
+Full working day             89              80                      35
+Part-time employment         17              22                      44
+Temporary doesn't work       11              20                      35
+On the household             43              35                       6
+Retired                      22               6                       8
+
+1.7291616900960234e-21
+--------------------------------------------------
+```
+
+__Conclusion__\
+The null hypothesis is that marital status does not affect employment, the alternative hypothesis does (there is a 
+significant relationship). Since the pvalue is very small (< 0.05), we reject the null hypothesis and accept the 
+alternative - there is a relationship (marital status affects employment).
+
+
+---
+# TODO
+...
 
 
 ---
 
 ### Task *
 
-# TODO
+
 
 *
 
 __Output__
 ```
-TODO
+
 ```
 
 ---
