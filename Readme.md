@@ -1592,7 +1592,200 @@ accuracy of around 50% was shown.
 
 ## Practice 6 - Gain skills in working with clusterization methods, apply machine learning algorithms to solve clusterization problems.
 
-# TODO
+### Task *
+
+Find data for clustering. If the features in the data have very different scales, then the data must first be normalized.
+
+t1
+
+__Output__
+```
+    species     island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0    Adelie  Torgersen              39.1             18.7              181.0
+1    Adelie  Torgersen              39.5             17.4              186.0
+2    Adelie  Torgersen              40.3             18.0              195.0
+3    Adelie  Torgersen               NaN              NaN                NaN
+4    Adelie  Torgersen              36.7             19.3              193.0
+..      ...        ...               ...              ...                ...
+339  Gentoo     Biscoe               NaN              NaN                NaN
+340  Gentoo     Biscoe              46.8             14.3              215.0
+341  Gentoo     Biscoe              50.4             15.7              222.0
+342  Gentoo     Biscoe              45.2             14.8              212.0
+343  Gentoo     Biscoe              49.9             16.1              213.0
+
+     body_mass_g     sex
+0         3750.0    MALE
+1         3800.0  FEMALE
+2         3250.0  FEMALE
+3            NaN     NaN
+4         3450.0  FEMALE
+..           ...     ...
+339          NaN     NaN
+340       4850.0  FEMALE
+341       5750.0    MALE
+342       5200.0  FEMALE
+343       5400.0    MALE
+
+[344 rows x 7 columns]
+     species  island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0          0       0              39.1             18.7              181.0
+1          0       0              39.5             17.4              186.0
+2          0       0              40.3             18.0              195.0
+4          0       0              36.7             19.3              193.0
+5          0       0              39.3             20.6              190.0
+..       ...     ...               ...              ...                ...
+338        2       1              47.2             13.7              214.0
+340        2       1              46.8             14.3              215.0
+341        2       1              50.4             15.7              222.0
+342        2       1              45.2             14.8              212.0
+343        2       1              49.9             16.1              213.0
+
+     body_mass_g  sex
+0         3750.0    0
+1         3800.0    1
+2         3250.0    1
+4         3450.0    1
+5         3650.0    0
+..           ...  ...
+338       4925.0    1
+340       4850.0    1
+341       5750.0    0
+342       5200.0    1
+343       5400.0    0
+
+[334 rows x 7 columns]
+```
+
+### Task 2
+
+Perform data clustering using the k-means algorithm. Use the elbow rule and silhouette coefficient to find the 
+optimal number of clusters.
+
+t2
+
+__Output__
+```
+[[1.74809160e+00 1.03816794e+00 4.71885496e+01 1.57244275e+01
+  2.14786260e+02 5.06660305e+03 3.96946565e-01]
+ [3.89162562e-01 1.34975369e+00 4.19330049e+01 1.80871921e+01
+  1.92128079e+02 3.65566502e+03 5.66502463e-01]]
+cluster
+1    203
+0    131
+Name: count, dtype: int64
+```
+![](images/p6_1.png)
+![](images/p6_2.png)
+![](images/p6_3.png)
+
+__Conclusion__\
+The task is to understand with the help of graphs how many classes to define, whether it is possible to divide the 
+dataset into classes, whether there is a pure division into classes in the dataset. We select the number of clusters 
+through graphical analysis and then divide each point into classes.
+The first graph (score1) is the value of the cost function. Applying the elbow rule, we look for the break point of 
+the line (from minus to plus / from decreasing to increasing), in this case the change in slope is the very first on 
+the left, the value 3 on the X-axis is the first break, so the number of clusters is also 3. The elbow method is not 
+accurate and , so another method is used. In the second graph, the silhouette coefficient is applied, we are looking 
+for the maximum value - the value on the X axis - the optimal number of clusters (in our case 2) - this method is more 
+accurate, but is not ideal, since there is a way to automatically find the number of clusters.
+The k means method is the most commonly used clustering algorithm. The algorithm takes random points, takes them as 
+cluster centers (centroids), for each other point it finds the centroid closest to it, each centroid corresponds to a 
+set of closest points, the centroids go to the found cluster center and everything repeats. Cluster_centers - 
+centroids, value_counts - how many elements are in each class.
+We create a Kmeans model, adjust the model to the data, get centroids, if there is a point that is closer to a 
+certain centroid, then this point will belong to the centroid class. The algorithm requires specifying the number of 
+clusters. We create a cluster column by adding labels_ to the dataset, these are essentially our centroids (their 
+numbers), they are needed to determine the color of each cluster. Coordinates in three-dimensional graphs are 
+important predictors/features/signs, they are the most important and are determined subjectively.
+
+### Task 3
+
+Perform data clustering using a hierarchical clustering algorithm.
+
+t3
+
+__Output__
+![](images/p6_4.png)
+
+__Conclusion__\
+Hierarchical agglomerative - starts with a small number of points, then more and more are added - from smaller 
+clusters to larger ones - a method of creating groupings between clusters (this is a designation of 
+agglomerativeness), this method is no better than k means. In this method, clusters are nested within each other and 
+form a tree structure. Hierarchical clustering is used to determine relationships between objects. Trees are better 
+than logistic regression. Here we also choose the number of clusters equal to 2.
+
+### Task 4
+
+Perform data clustering using the DBSCAN algorithm.
+
+t4
+
+__Output__
+```
+22
+cluster
+-1     195
+ 0      12
+ 8      10
+ 6       9
+ 3       9
+ 5       8
+ 12      7
+ 1       7
+ 4       6
+ 2       6
+ 9       6
+ 13      6
+ 14      6
+ 15      6
+ 16      6
+ 7       5
+ 11      5
+ 10      5
+ 18      5
+ 17      5
+ 20      5
+ 19      5
+Name: count, dtype: int64
+```
+![](images/p6_5.png)
+
+__Conclusion__\
+DBSCAN (Density-based spatial clustering of applications with noise) is based on density. The algorithm groups 
+together points that are closely spaced (high density), and marks points that are in areas of low density with 
+outliers (which are ignored). This algorithm itself determines the number of clusters (22 in this case). In this case, 
+there were 3 clusters according to the number of penguin breeds (spicies field).
+The eps parameter (you can change these parameters) is the minimum distance between points; in our case, if it is 
+less than 11, then these 2 points are considered neighbors. The samples parameter is the minimum number of neighbors 
+for each point at which this point can be considered a centroid.
+
+### Task 5
+
+Visualize clustered data using t-SNE or UMAP if necessary. If the data is three-dimensional, then a three-dimensional 
+scatter plot can be used.
+
+t5
+
+__Output__
+![](images/p6_6.png)
+
+__Conclusion__\
+Visualization was done using the t-SNE method, and the rest was visualized by 3D scatter plots. In principle, there 
+is no need to use t-SNE or UMAP to visualize the data, since the visualization has already been done in another way. 
+This method works better than all the previous ones. They are essentially the same thing - they depend on the distance 
+between the points.
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
@@ -1624,7 +1817,7 @@ accuracy of around 50% was shown.
 
 ### Task *
 
-_# template_
+
 
 *
 
@@ -1634,6 +1827,6 @@ __Output__
 ```
 
 __Conclusion__\
-TODO
+
 
 ---
