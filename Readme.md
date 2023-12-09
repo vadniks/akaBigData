@@ -9,6 +9,11 @@ _# noinspection Math_
 
 ---
 
+# TODO: add content reference
+# TODO: add datasets and their sources
+
+---
+
 ## Practice 1 - Getting started with Python language
 
 ### Task 1
@@ -952,10 +957,390 @@ The null hypothesis is that marital status does not affect employment, the alter
 significant relationship). Since the pvalue is very small (< 0.05), we reject the null hypothesis and accept the 
 alternative - there is a relationship (marital status affects employment).
 
-
 ---
-# TODO
-...
+
+## Practice 4 - Correlation, linear regression and analysis of variance
+Gain skills in working with methods for calculating correlation and linear regression, conducting analysis of variance.
+
+### Task 1
+
+Determine two vectors representing the number of cars parked during 5 working days at the business center in the 
+street parking lot and in the underground garage. 
+1. Find and interpret the correlation between the variables “Street” and “Garage” (calculate the Pearson correlation).
+2. Construct a scatter plot for the above variables.
+
+t1
+
+__Output__
+```
+t1:
+[[ 1. -1.]
+ [-1.  1.]]
+-0.9999999999999998
+--------------------------------------------------
+```
+![](images/p4_1.png)
+
+__Conclusion__\
+From the correlation matrix and the separately derived correlation coefficient, it is clear that there is a 
+relationship - the correlation is almost -1, which means there is a strong negative correlation.
+
+### Task 2
+
+Find and download data. Derive, preprocess and describe the features.
+1. Construct a correlation matrix for one target variable. Determine the most correlated variable and continue working with it in the next paragraph.
+2. Implement regression manually, display slope, shift and MSE.
+3. Visualize the regression on a graph.
+
+t2
+
+__Output__
+```
+t2:
+    species     island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0    Adelie  Torgersen              39.1             18.7              181.0
+1    Adelie  Torgersen              39.5             17.4              186.0
+2    Adelie  Torgersen              40.3             18.0              195.0
+3    Adelie  Torgersen               NaN              NaN                NaN
+4    Adelie  Torgersen              36.7             19.3              193.0
+..      ...        ...               ...              ...                ...
+339  Gentoo     Biscoe               NaN              NaN                NaN
+340  Gentoo     Biscoe              46.8             14.3              215.0
+341  Gentoo     Biscoe              50.4             15.7              222.0
+342  Gentoo     Biscoe              45.2             14.8              212.0
+343  Gentoo     Biscoe              49.9             16.1              213.0
+
+     body_mass_g     sex
+0         3750.0    MALE
+1         3800.0  FEMALE
+2         3250.0  FEMALE
+3            NaN     NaN
+4         3450.0  FEMALE
+..           ...     ...
+339          NaN     NaN
+340       4850.0  FEMALE
+341       5750.0    MALE
+342       5200.0  FEMALE
+343       5400.0    MALE
+
+[344 rows x 7 columns]
+
+     species  island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0          0       0              39.1             18.7              181.0
+1          0       0              39.5             17.4              186.0
+2          0       0              40.3             18.0              195.0
+3          0       0               NaN              NaN                NaN
+4          0       0              36.7             19.3              193.0
+..       ...     ...               ...              ...                ...
+339        2       1               NaN              NaN                NaN
+340        2       1              46.8             14.3              215.0
+341        2       1              50.4             15.7              222.0
+342        2       1              45.2             14.8              212.0
+343        2       1              49.9             16.1              213.0
+
+     body_mass_g  sex
+0         3750.0    0
+1         3800.0    1
+2         3250.0    1
+3            NaN   -1
+4         3450.0    1
+..           ...  ...
+339          NaN   -1
+340       4850.0    1
+341       5750.0    0
+342       5200.0    1
+343       5400.0    0
+
+[344 rows x 7 columns]
+
+     species  island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0        0.0     0.0          0.254545         0.666667           0.152542
+1        0.0     0.0          0.269091         0.511905           0.237288
+2        0.0     0.0          0.298182         0.583333           0.389831
+3        0.0     0.0          0.167273         0.738095           0.355932
+4        0.0     0.0          0.261818         0.892857           0.305085
+..       ...     ...               ...              ...                ...
+337      1.0     0.5          0.549091         0.071429           0.711864
+338      1.0     0.5          0.534545         0.142857           0.728814
+339      1.0     0.5          0.665455         0.309524           0.847458
+340      1.0     0.5          0.476364         0.202381           0.677966
+341      1.0     0.5          0.647273         0.357143           0.694915
+
+     body_mass_g       sex
+0       0.291667  0.333333
+1       0.305556  0.666667
+2       0.152778  0.666667
+3       0.208333  0.666667
+4       0.263889  0.333333
+..           ...       ...
+337     0.618056  0.666667
+338     0.597222  0.666667
+339     0.847222  0.333333
+340     0.694444  0.666667
+341     0.750000  0.333333
+
+[342 rows x 7 columns]
+
+     species  island  culmen_length_mm  culmen_depth_mm  flipper_length_mm  \
+0        0.0     0.0          0.254545         0.666667           0.152542
+1        0.0     0.0          0.269091         0.511905           0.237288
+2        0.0     0.0          0.298182         0.583333           0.389831
+3        0.0     0.0          0.167273         0.738095           0.355932
+4        0.0     0.0          0.261818         0.892857           0.305085
+..       ...     ...               ...              ...                ...
+337      1.0     0.5          0.549091         0.071429           0.711864
+338      1.0     0.5          0.534545         0.142857           0.728814
+339      1.0     0.5          0.665455         0.309524           0.847458
+340      1.0     0.5          0.476364         0.202381           0.677966
+341      1.0     0.5          0.647273         0.357143           0.694915
+
+     body_mass_g       sex
+0       0.291667  0.333333
+1       0.305556  0.666667
+2       0.152778  0.666667
+3       0.208333  0.666667
+4       0.263889  0.333333
+..           ...       ...
+337     0.618056  0.666667
+338     0.597222  0.666667
+339     0.847222  0.333333
+340     0.694444  0.666667
+341     0.750000  0.333333
+
+[342 rows x 7 columns]
+
+[[1.         0.75049112]
+ [0.75049112 1.        ]]
+
+0.7504911189081507
+
+                   species  island  culmen_length_mm  culmen_depth_mm  \
+species              1.000   0.005             0.731           -0.744
+island               0.005   1.000             0.223            0.180
+culmen_length_mm     0.731   0.223             1.000           -0.235
+culmen_depth_mm     -0.744   0.180            -0.235            1.000
+flipper_length_mm    0.854  -0.145             0.656           -0.584
+body_mass_g          0.750  -0.189             0.595           -0.472
+sex                  0.012   0.047            -0.269           -0.323
+
+                   flipper_length_mm  body_mass_g    sex
+species                        0.854        0.750  0.012
+island                        -0.145       -0.189  0.047
+culmen_length_mm               0.656        0.595 -0.269
+culmen_depth_mm               -0.584       -0.472 -0.323
+flipper_length_mm              1.000        0.871 -0.197
+body_mass_g                    0.871        1.000 -0.347
+sex                           -0.197       -0.347  1.000
+[0.93208977] 0.10126324431123246
+
+0.013649956706809902
+
+--------------------------------------------------
+```
+![](images/p4_2.png)
+![](images/p4_3.png)
+
+__Conclusion__
+1. A pair of any 2 variables was selected, a correlation matrix was calculated from them and a coefficient of 
+0.75049111189081507 was determined - rather, there is a positive correlation. Then, based on the calculated table, the 
+pair of variables with the highest correlation was precisely determined - body_mass_g and flipper_length_mm with a 
+coefficient of 0.871.
+2. Regression was calculated (best fit line - a line that captures the majority of points, a line that shows how the 
+data (points) are correlated). Next, a slope (model1.coef_) equal to 0.93208977 and an offset (model1.intercept_) 
+equal to 0.10126324431123246 were found, the slope coefficient reports a slope of approximately 30 degrees from the 
+origin. At the end, MSE was found - mean squared error (mean squared error - a metric that shows how accurate the 
+forecasts are and what is the magnitude of the deviation from the actual values) equal to 0.013649956706809902, since 
+the closer the value is to zero, the better the model, then at a given value ( 0.01) the constructed model is almost ideal.
+3. A regression graph was constructed, from which a positive relationship can be seen - the more one, the more the other.
+
+### Task 3
+
+Load data: 'insurance.csv'. Output and preprocess. List unique regions.
+1. Perform a one-way ANOVA test to test the effect of region on body mass index (BMI) using the first method through the Scipy library.
+2. Perform a one-way ANOVA test to test the effect of region on body mass index (BMI) using the second method, using the anova_lm() function from the statsmodels library.
+3. Using Student's t test, sort through all pairs. Define the Bonferroni correction. Draw conclusions.
+4. Perform Tukey's post-hoc tests and plot the graph.
+5. Run a two-way ANOVA test to test the effect of region and gender on body mass index (BMI) using the anova_lm() function from the statsmodels library.
+6. Perform Tukey's post-hoc tests and plot the graph.
+
+t3
+
+__Output__
+```
+t3:
+      age     sex     bmi  children smoker     region      charges
+0      19  female  27.900         0    yes  southwest  16884.92400
+1      18    male  33.770         1     no  southeast   1725.55230
+2      28    male  33.000         3     no  southeast   4449.46200
+3      33    male  22.705         0     no  northwest  21984.47061
+4      32    male  28.880         0     no  northwest   3866.85520
+...   ...     ...     ...       ...    ...        ...          ...
+1333   50    male  30.970         3     no  northwest  10600.54830
+1334   18  female  31.920         0     no  northeast   2205.98080
+1335   18  female  36.850         0     no  southeast   1629.83350
+1336   21  female  25.800         0     no  southwest   2007.94500
+1337   61  female  29.070         0    yes  northwest  29141.36030
+
+[1338 rows x 7 columns]
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1338 entries, 0 to 1337
+Data columns (total 7 columns):
+ #   Column    Non-Null Count  Dtype
+---  ------    --------------  -----
+ 0   age       1338 non-null   int64
+ 1   sex       1338 non-null   object
+ 2   bmi       1338 non-null   float64
+ 3   children  1338 non-null   int64
+ 4   smoker    1338 non-null   object
+ 5   region    1338 non-null   object
+ 6   charges   1338 non-null   float64
+dtypes: float64(2), int64(2), object(3)
+memory usage: 73.3+ KB
+
+
+ age : 0.0%
+ sex : 0.0%
+ bmi : 0.0%
+ children : 0.0%
+ smoker : 0.0%
+ region : 0.0%
+ charges : 0.0%
+
+
+['southwest' 'southeast' 'northwest' 'northeast']
+
+F_onewayResult(statistic=39.49505720170283, pvalue=1.881838913929143e-24)
+
+                sum_sq      df          F        PR(>F)
+region     4055.880631     3.0  39.495057  1.881839e-24
+Residual  45664.319755  1334.0        NaN           NaN
+
+northeast northwest
+TtestResult(statistic=-0.060307727183293185, pvalue=0.951929170821864, df=647.0)
+5.711575024931184
+northeast southeast
+TtestResult(statistic=-8.790905562598699, pvalue=1.186014937424813e-17, df=686.0)
+7.116089624548878e-17
+northeast southwest
+TtestResult(statistic=-3.1169000930045923, pvalue=0.0019086161671573072, df=647.0)
+0.011451697002943843
+northwest southeast
+TtestResult(statistic=-9.25649013552548, pvalue=2.643571405230106e-19, df=687.0)
+1.5861428431380637e-18
+northwest southwest
+TtestResult(statistic=-3.2844171500398582, pvalue=0.001076958496307695, df=648.0)
+0.006461750977846171
+southeast southwest
+TtestResult(statistic=5.908373821545118, pvalue=5.4374009639680636e-09, df=687.0)
+3.2624405783808385e-08
+
+
+30.66339686098655
+30.4
+
+
+   Multiple Comparison of Means - Tukey HSD, FWER=0.05
+==========================================================
+  group1    group2  meandiff p-adj   lower   upper  reject
+----------------------------------------------------------
+northeast northwest   0.0263 0.9999 -1.1552  1.2078  False
+northeast southeast   4.1825    0.0   3.033   5.332   True
+northeast southwest   1.4231 0.0107  0.2416  2.6046   True
+northwest southeast   4.1562    0.0  3.0077  5.3047   True
+northwest southwest   1.3968 0.0127  0.2162  2.5774   True
+southeast southwest  -2.7594    0.0 -3.9079 -1.6108   True
+----------------------------------------------------------
+
+                df        sum_sq      mean_sq          F        PR(>F)
+region         3.0   4055.880631  1351.960210  39.602259  1.636858e-24
+sex            1.0     86.007035    86.007035   2.519359  1.126940e-01
+region:sex     3.0    174.157808    58.052603   1.700504  1.650655e-01
+Residual    1330.0  45404.154911    34.138462        NaN           NaN
+
+         Multiple Comparison of Means - Tukey HSD, FWER=0.05
+======================================================================
+     group1          group2     meandiff p-adj   lower   upper  reject
+----------------------------------------------------------------------
+northeastfemale   northeastmale  -0.2998 0.9998 -2.2706  1.6711  False
+northeastfemale northwestfemale  -0.0464    1.0 -2.0142  1.9215  False
+northeastfemale   northwestmale  -0.2042    1.0 -2.1811  1.7728  False
+northeastfemale southeastfemale   3.3469    0.0    1.41  5.2839   True
+northeastfemale   southeastmale   4.6657    0.0  2.7634   6.568   True
+northeastfemale southwestfemale   0.7362 0.9497 -1.2377    2.71  False
+northeastfemale   southwestmale   1.8051 0.1007 -0.1657   3.776  False
+  northeastmale northwestfemale   0.2534 0.9999 -1.7083  2.2152  False
+  northeastmale   northwestmale   0.0956    1.0 -1.8752  2.0665  False
+  northeastmale southeastfemale   3.6467    0.0  1.7159  5.5775   True
+  northeastmale   southeastmale   4.9655    0.0  3.0695  6.8614   True
+  northeastmale southwestfemale    1.036 0.7515 -0.9318  3.0037  False
+  northeastmale   southwestmale   2.1049 0.0258  0.1402  4.0697   True
+northwestfemale   northwestmale  -0.1578    1.0 -2.1257    1.81  False
+northwestfemale southeastfemale   3.3933    0.0  1.4656   5.321   True
+northwestfemale   southeastmale    4.712    0.0  2.8192  6.6049   True
+northwestfemale southwestfemale   0.7825 0.9294 -1.1822  2.7473  False
+northwestfemale   southwestmale   1.8515 0.0806 -0.1103  3.8132  False
+  northwestmale southeastfemale   3.5511    0.0  1.6141  5.4881   True
+  northwestmale   southeastmale   4.8698    0.0  2.9676  6.7721   True
+  northwestmale southwestfemale   0.9403 0.8354 -1.0335  2.9142  False
+  northwestmale   southwestmale   2.0093  0.042  0.0385  3.9801   True
+southeastfemale   southeastmale   1.3187 0.3823  -0.542  3.1795  False
+southeastfemale southwestfemale  -2.6108 0.0011 -4.5446 -0.6769   True
+southeastfemale   southwestmale  -1.5418 0.2304 -3.4726   0.389  False
+  southeastmale southwestfemale  -3.9295    0.0 -5.8286 -2.0304   True
+  southeastmale   southwestmale  -2.8606 0.0001 -4.7565 -0.9646   True
+southwestfemale   southwestmale    1.069 0.7201 -0.8988  3.0367  False
+----------------------------------------------------------------------
+```
+![](images/p4_4.png)
+![](images/p4_5.png)
+
+__Conclusion__\
+There are 4 unique regions in total: southwest, southeast, northwest, northeast.
+1. The result of a one-way ANOVA test (analysis of variance, a statistical procedure for comparing the average values 
+of a certain variable and two or more independent groups) shows that the p-value is 1.881838913929143e-24, it is less 
+than 0.05, which means the feature region has a statistically significant effect on the feature bmi (body mass index).
+2. The result of the test (PR(>F) - p-relationship is p-value) coincides with the result of the previous test. In this 
+test, you do not need to pre-divide into 4 regions, unlike the previous one.
+3. Based on the results of calculating the Student's t test (compares all pairs and shows whether there is an effect) 
+and the Bonferroni correction (the simplest and most well-known way to control the group probability of error) for all 
+pairs, it was found that only the northeast northwest pair had a p-value more than 0.05 - you need to accept the null 
+hypothesis that there is no significant influence of features on each other. The Bonferroni correction is the p-value, 
+calculated as the Student's t-test p-value multiplied by the number of pairs.
+4. Results of post-hoc tests (they check due to which differences the effect turned out to be significant, the 
+differences are significant or not) Tukey (the most popular of them) determined that for all pairs except the first 
+(northeast northwest) the null hypothesis should be rejected (reject column) and accept the alternative hypothesis - 
+there is a significant effect. The graph also shows that southwest and southeast have no intersections (there is a 
+significant difference), and northwest northeast (p-adj equals 0.9999 > 0.05) has intersections (shown by horizontal 
+lines - if the line is exactly under the other, then there is an intersection) - between them no difference. The larger 
+the intersection, the smaller the difference. The red line on the graph is the average bmi value. Meandiff – the 
+difference between the average values for each pair. Black dots are average values. The horizontal black lines are the 
+same length because the number of elements is the same. Lower is the least, upper is the most. P-adj – p-value adjusted 
+– normalized p value – 0.1 is very small.
+5. The test result shows that only the region factor has a significant effect on the body mass index (bmi) trait, since 
+the p-value (PR(>F)) equal to 1.636858e-24 is less than 0.05, the gender factor does not affect the ratio between 2 
+factors (region and gender) does not affect bmi. Two-factor (one more factor is added) – explains the influence of 
+factors a, b and error checking - the resulting answer does not come from the influence of a and b on each other.
+6. First, a combination of the characteristics region and gender is created, with its help we find its effect on the 
+trait body mass index (bmi). Tukey finds all the unique pairs and compares them. On the graph, the last 4 elements have 
+few differences between each other, but the first 4 have significant differences both between themselves and between 
+the rest.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ---
@@ -970,5 +1355,8 @@ __Output__
 ```
 
 ```
+
+__Conclusion__\
+TODO
 
 ---
