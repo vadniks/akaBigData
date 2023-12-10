@@ -1,16 +1,33 @@
 
-# Technologies and big data analysis tools
-These are the practices from some AI-related course from my university. It was taught by 
+# Technologies and tools for big data analysis
+These are the practices from some AI-related course from my university which was taught by 
 our department of applied mathematics.
 
-_# noinspection MachineTranslation_
+__This source code can be freely used as well as the other materials even without mentioning the original author - 
+*you can safely write them off!*__\
+[Original repository](https://github.com/vadniks/akaBigData)
 
-_# noinspection Math_
+_# noinspection MachineTranslation, Math_
 
 ---
 
-# TODO: add content reference
-# TODO: add datasets and their sources
+# Datasets
+
+Free datasets were used from [Gapminer](https://www.gapminder.org) and [Kaggle](https://www.kaggle.com), 
+other datasets were provided with the tasks, so their original sources are unknown.
+
+---
+
+# Contents
+
+* [Practice 1 - Getting started with Python language](#practice-1---getting-started-with-python-language)
+* [Practice 2 - Various data visualization libraries](#practice-2---various-data-visualization-libraries)
+* [Practice 3 - Various methods of statistical research](#practice-3---various-methods-of-statistical-research)
+* [Practice 4 - Methods for calculating correlation and linear regression, conducting analysis of variance](#practice-4---methods-for-calculating-correlation-and-linear-regression-conducting-analysis-of-variance)
+* [Practice 5 - Applying machine learning algorithms to solve classification problems](#practice-5---applying-machine-learning-algorithms-to-solve-classification-problems)
+* [Practice 6 - Applying machine learning algorithms to solve clusterization problems](#practice-6---applying-machine-learning-algorithms-to-solve-clusterization-problems)
+* [Practice 7 - Ensemble learning methods](#practice-7---ensemble-learning-methods)
+* [Practice 8 - Teaching methods based on association rules](#practice-8---teaching-methods-based-on-association-rules)
 
 ---
 
@@ -26,7 +43,7 @@ the parameters of which are supplied to the input. Figures that are submitted fo
 triangle, rectangle, circle. The result of the work is a dictionary, where
 the key is the name of the figure, and the value is the area.
 
-P1T2
+`P1T2`
 
 __Output__
 ```
@@ -40,7 +57,7 @@ Write a program that takes two numbers as input and
 the operation that needs to be applied to them. Must be implemented
 the following operations: +, -, /, //, abs – modulus, pow or ** – exponentiation.
 
-P1T3
+`P1T3`
 
 __Output__
 ```
@@ -53,7 +70,7 @@ Write a program that reads numbers from the console (by
 one per line) until the sum of the entered numbers is equal to 0 and
 after that it displays the sum of the squares of all read numbers.
 
-P1T4
+`P1T4`
 
 __Output__
 ```
@@ -72,7 +89,7 @@ A non-negative integer N is passed to the program input. For example, if
 N = 7, then the program should print 1 2 2 3 3 3 4. Printing list elements
 separated by a space – print(*list).
 
-P1T5
+`P1T5`
 
 __Output__
 ```
@@ -88,7 +105,7 @@ is the sum of all elements of list A according to the letter contained in
 the same position in list B. Example program result: {‘a’ : 10, ‘b’ : 15, ‘c’
 : 6}.
 
-P1T6
+`P1T6`
 
 __Output__
 ```
@@ -106,7 +123,7 @@ records where the average age of houses in the area is more than 50 years and th
 median house price values. 12. Using the apply() method, output to
 screen the name of the characteristic and its average value.
 
-P1T7_12
+`P1T7_12`
 
 __Output__
 ```
@@ -189,7 +206,7 @@ dtype: float64
 
 ---
 
-## Practice 2 - Familiarize yourself with various data visualization libraries
+## Practice 2 - Various data visualization libraries
 
 ### Task 1
 
@@ -202,7 +219,7 @@ Display information about the data using the .info(), .head() methods.
 Check data for empty values. If present, remove row data or interpolate missing
 values. If necessary, additionally pre-process the data for further work with it.
 
-t1-t2
+`t1-t2`
 
 __Output__
 ```
@@ -247,9 +264,9 @@ Plot a bar chart (.bar) using the graph_objs module from the Plotly library with
 8. Add a grid to the graph, make its color 'ivory' and thickness equal to 2. (You can do this when setting the axes using gridwidth=2, gridcolor='ivory').
 9. Remove extra padding along the edges.
 
-t3
+`t3`
 
-__Output__
+__Output__\
 ![](images/p2_1.png)
 
 ### Task 4
@@ -259,9 +276,9 @@ Make sure that the boundaries of each share are highlighted with a black line wi
 thickness of 2 and the categories of the pie chart are readable (for example, combine 
 some objects).
 
-t4
+`t4`
 
-__Output__
+__Output__\
 ![](images/p2_2.png)
 
 ### Task 5
@@ -273,9 +290,9 @@ conclusion. Make a graph with lines and markers, line color 'crimson', point col
 graph, make its color 'mistyrose' and width equal to 2. (You can do this when 
 setting the axes using linewidth=2, color='mistyrose').
 
-t5
+`t5`
 
-__Output__
+__Output__\
 ![](images/p2_3.png)
 ![](images/p2_4.png)
 
@@ -291,7 +308,7 @@ fashion MNIST data set (you can also use other ready-made data sets where you ca
 observe the division of objects into clusters). Consider the visualization results 
 for different perplexity values.
 
-t6
+`t6`
 
 __Output__
 ```
@@ -321,7 +338,7 @@ Visualize multidimensional data using UMAP with different n_neighbors and min_di
 parameters. Calculate the running time of the algorithm using the time library and 
 compare it with the running time of t-SNE.
 
-t7
+`t7`
 
 __Output__
 ```
@@ -349,7 +366,7 @@ is faster.
 
 ---
 
-## Practice 3 - Familiarize yourself with various methods of statistical research
+## Practice 3 - Various methods of statistical research
 
 ### Task 1
 
@@ -359,7 +376,7 @@ Load data from file
 
 Use the describe() method to view statistics on the data. Draw conclusions.
 
-t1-t2
+`t1-t2`
 
 __Output__
 ```
@@ -396,9 +413,9 @@ for bmi, 1 for children, 12110 for charges. Each subsequent quarter increases (2
 
 Construct histograms for numerical indicators. Draw conclusions.
 
-t3
+`t3`
 
-__Output__
+__Output__\
 ![](images/p3_1.png)
 
 __Conclusion__\
@@ -415,7 +432,7 @@ Find measures of central tendency and measures of dispersion for body mass index
 (charges). Display results as text and in histograms (3 vertical lines). Add a legend to graphs. 
 Draw conclusions.
 
-t4
+`t4`
 
 __Output__
 ```
@@ -456,9 +473,9 @@ is the most common). The range y of the charges attribute is very large (max –
 Construct a box-plot for numerical indicators. The names of the graphs must correspond to the names 
 of the features. Draw conclusions.
 
-t5
+`t5`
 
-__Output__
+__Output__\
 ![](images/p3_3.png)
 ![](images/p3_4.png)
 
@@ -476,7 +493,7 @@ Using the charges or imb attribute, check whether the central limit theorem hold
 lengths n. Number of samples = 300. Display the result in the form of histograms. Find the standard deviation 
 and mean for the resulting distributions. Draw conclusions.
 
-t6
+`t6`
 
 __Output__
 ```
@@ -508,7 +525,7 @@ graph is to a very accurate form of normal distribution.
 
 Construct 95% and 99% confidence intervals for the mean expenditure and mean BMI.
 
-t7
+`t7`
 
 __Output__
 ```
@@ -526,7 +543,7 @@ Check the distribution of the following characteristics for normality: body mass
 and alternative hypotheses. For each characteristic, use the KS test and q-q plot. Draw conclusions based on the 
 obtained p-values.
 
-t8
+`t8`
 
 __Output__
 ```
@@ -561,7 +578,7 @@ distribution.
 
 Load data from file
 
-t9
+`t9`
 
 __Output__
 ```
@@ -637,7 +654,7 @@ have the most missing values. For the remaining features, process gaps: for a ca
 the default value (for example, “other”), for a numeric feature, use filling with the median value. Show that there 
 are no more gaps in the data.
 
-t10
+`t10`
 
 __Output__
 ```
@@ -701,7 +718,7 @@ t10:
 View statistics on data using describe(). Draw conclusions about which features contain outliers. See for which 
 countries the number of deaths per day exceeded 3000 and how many such days there were.
 
-t11
+`t11`
 
 __Output__
 ```
@@ -782,7 +799,7 @@ Ecuador (Ecuador), Mexico (Mexico), Peru (Peru), United_States_of_America (USA).
 
 Find data duplication. Remove duplicates.
 
-t12
+`t12`
 
 __Output__
 ```
@@ -840,7 +857,7 @@ northwest region, the second sample is the body mass index of people from the so
 these samples using Student's t-test. Preliminarily check samples for normality (Shopiro-Wilk test) and homogeneity of 
 variance (Bartlett test).
 
-t13
+`t13`
 
 __Output__
 ```
@@ -910,7 +927,7 @@ there are no significant differences between the bmi values of the regions.
 The dice was rolled 600 times and the following results were obtained (see Listing 13). Use the Chi-square test to 
 check whether the resulting distribution is uniform. Use the scipy.stats.chisquare() function.
 
-t14
+`t14`
 
 __Output__
 ```
@@ -936,7 +953,7 @@ the null hypothesis – uniform distribution.
 Use the Chi-square test to test whether the variables are dependent. Create a dataframe using the following code 
 (see Listing 14). Use the scipy.stats.chi2_contingency() function. Does marital status affect employment?
 
-t15
+`t15`
 
 __Output__
 ```
@@ -959,8 +976,7 @@ alternative - there is a relationship (marital status affects employment).
 
 ---
 
-## Practice 4 - Correlation, linear regression and analysis of variance
-Gain skills in working with methods for calculating correlation and linear regression, conducting analysis of variance.
+## Practice 4 - Methods for calculating correlation and linear regression, conducting analysis of variance
 
 ### Task 1
 
@@ -969,7 +985,7 @@ street parking lot and in the underground garage.
 1. Find and interpret the correlation between the variables “Street” and “Garage” (calculate the Pearson correlation).
 2. Construct a scatter plot for the above variables.
 
-t1
+`t1`
 
 __Output__
 ```
@@ -992,7 +1008,7 @@ Find and download data. Derive, preprocess and describe the features.
 2. Implement regression manually, display slope, shift and MSE.
 3. Visualize the regression on a graph.
 
-t2
+`t2`
 
 __Output__
 ```
@@ -1163,7 +1179,7 @@ Load data: 'insurance.csv'. Output and preprocess. List unique regions.
 5. Run a two-way ANOVA test to test the effect of region and gender on body mass index (BMI) using the anova_lm() function from the statsmodels library.
 6. Perform Tukey's post-hoc tests and plot the graph.
 
-t3
+`t3`
 
 __Output__
 ```
@@ -1328,13 +1344,13 @@ the rest.
 
 ---
 
-## Practice 5 - Gain skills in working with classification methods, apply machine learning algorithms to solve classification problems.
+## Practice 5 - Applying machine learning algorithms to solve classification problems
 
 ### Task 1
 
 Find data for classification. Pre-process the data if necessary.
 
-t1
+`t1`
 
 __Output__
 ```
@@ -1430,7 +1446,7 @@ t1:
 
 Draw a histogram that shows the balance of classes. Draw conclusions.
 
-t2
+`t2`
 
 __Output__
 ```
@@ -1456,7 +1472,7 @@ data - adding data using neural networks.
 
 Divide the sample into training and test. Training to train the model, test to check its quality.
 
-t3
+`t3`
 
 __Output__
 ```
@@ -1480,7 +1496,7 @@ machine searches for connections, test is used to check the identified connectio
 Apply classification algorithms: logistic regression, SVM, KNN. Construct an error matrix based on the results of the 
 models (use confusion_matrix from sklearn.metrics).
 
-t4
+`t4`
 
 __Output__
 ```
@@ -1540,7 +1556,7 @@ worst in terms of accuracy.
 Compare classification results using accuracy, precision, recall and f1-measure (you can use classification_report 
 from sklearn.metrics). Draw conclusions.
 
-t5
+`t5`
 
 __Output__
 ```
@@ -1590,13 +1606,13 @@ accuracy of around 50% was shown.
 
 ---
 
-## Practice 6 - Gain skills in working with clusterization methods, apply machine learning algorithms to solve clusterization problems.
+## Practice 6 - Applying machine learning algorithms to solve clusterization problems
 
-### Task *
+### Task 1
 
 Find data for clustering. If the features in the data have very different scales, then the data must first be normalized.
 
-t1
+`t1`
 
 __Output__
 ```
@@ -1661,7 +1677,7 @@ __Output__
 Perform data clustering using the k-means algorithm. Use the elbow rule and silhouette coefficient to find the 
 optimal number of clusters.
 
-t2
+`t2`
 
 __Output__
 ```
@@ -1702,9 +1718,9 @@ important predictors/features/signs, they are the most important and are determi
 
 Perform data clustering using a hierarchical clustering algorithm.
 
-t3
+`t3`
 
-__Output__
+__Output__\
 ![](images/p6_4.png)
 
 __Conclusion__\
@@ -1718,7 +1734,7 @@ than logistic regression. Here we also choose the number of clusters equal to 2.
 
 Perform data clustering using the DBSCAN algorithm.
 
-t4
+`t4`
 
 __Output__
 ```
@@ -1764,9 +1780,9 @@ for each point at which this point can be considered a centroid.
 Visualize clustered data using t-SNE or UMAP if necessary. If the data is three-dimensional, then a three-dimensional 
 scatter plot can be used.
 
-t5
+`t5`
 
-__Output__
+__Output__\
 ![](images/p6_6.png)
 
 __Conclusion__\
@@ -1777,13 +1793,13 @@ between the points.
 
 ---
 
-## Practice 7 - Gain skills in working with ensemble learning methods.
+## Practice 7 - Ensemble learning methods
 
-### Task *
+### Task 1
 
 Find data for a classification task or for a regression task.
 
-t1
+`t1`
 
 __Output__
 ```
@@ -1852,7 +1868,7 @@ __Output__
 
 Implement bugging.
 
-t2
+`t2`
 
 __Output__
 ```
@@ -1890,7 +1906,7 @@ this is the best result.
 
 Implement boosting on the same data that was used for bugging.
 
-t3
+`t3`
 
 __Output__
 ```
@@ -1935,13 +1951,13 @@ Execution on a graphics processor (GPU) is faster than on a central processing u
 
 ---
 
-## Practice 8 - Gain skills in working with teaching methods based on association rules.
+## Practice 8 - Teaching methods based on association rules
 
 ### Task 1
 
 Load data.
 
-t1
+`t1`
 
 __Output__
 ```
@@ -2032,7 +2048,7 @@ memory usage: 1.1+ MB
 
 Visualize data (display relative and actual frequency of occurrence for the 20 most popular products on histograms).
 
-t2
+`t2`
 
 __Output__
 ```
@@ -2095,7 +2111,7 @@ ones. Shape - quantity - dimension of all data. We divide each element by this d
 Apply the Apriori algorithm using 3 different libraries (apriori_python, apyori, efficient_apriori). Select 
 hyperparameters for the algorithms so that about 10 best rules are output.
 
-t3
+`t3`
 
 __Output__
 ```
@@ -2189,7 +2205,7 @@ better (result = rule) is compared to the random frequency.
 Apply the FP-Growth algorithm from the fpgrowth_py library. Select hyperparameters for the algorithm so that about 10 
 best rules are output.
 
-t4
+`t4`
 
 __Output__
 ```
@@ -2213,7 +2229,7 @@ optimization of the Apriori algorithm in the libraries used; minSupRatio = minSu
 
 Compare the execution time of all algorithms and build a histogram.
 
-t5
+`t5`
 
 __Output__
 ```
@@ -2241,7 +2257,7 @@ are generalized, separated into separate functions, and duplicated for convenien
 
 Load data.
 
-t6
+`t6`
 
 __Output__
 ```
@@ -2311,7 +2327,7 @@ memory usage: 893.6+ KB
 
 Visualize data (display relative and actual frequency of occurrence for the 20 most popular products on histograms).
 
-t7
+`t7`
 
 __Output__
 ```
@@ -2367,7 +2383,7 @@ Name: count, dtype: float64
 Apply the Apriori algorithm using 3 different libraries (apriori_python, apyori, efficient_apriori). Select 
 hyperparameters for the algorithms so that about 10 best rules are output.
 
-t8
+`t8`
 
 __Output__
 ```
@@ -2432,7 +2448,7 @@ end
 Apply the FP-Growth algorithm from the fpgrowth_py library. Select hyperparameters for the algorithm so that about 10 
 best rules are output.
 
-t9
+`t9`
 
 __Output__
 ```
@@ -2453,7 +2469,7 @@ __Output__
 
 Compare the execution time of all algorithms and build a histogram.
 
-t10
+`t10`
 
 __Output__
 ```
